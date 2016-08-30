@@ -1,5 +1,7 @@
 package examples.while_ut1.ast;
 
+import java.util.HashMap;
+
 /**
  * Representación de las sentencias condicionales.
  */
@@ -45,5 +47,16 @@ public class IfThen extends Stmt {
         IfThen other = (IfThen) obj;
         return (this.condition == null ? other.condition == null : this.condition.equals(other.condition))
                 && (this.thenBody == null ? other.thenBody == null : this.thenBody.equals(other.thenBody));
+    }
+
+    public HashMap<String, Object> evaluate(HashMap<String,Object> state) throws RuntimeException{
+        if((Boolean)condition.evaluate(state)){
+            return thenBody.evaluate(state);
+        }
+
+
+        return state;
+
+
     }
 }

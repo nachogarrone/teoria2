@@ -1,7 +1,9 @@
 package examples.while_ut1.ast;
 
+import java.util.HashMap;
+
 /** Representación de cadenas de caracteres
-*/
+ */
 public class Str extends Exp {
 	public final String string;
 
@@ -31,5 +33,11 @@ public class Str extends Exp {
 	@Override
 	public int hashCode() {
 		return string != null ? string.hashCode() : 0;
+	}
+
+	public Object evaluate(HashMap<String,Object> state){
+
+		return this.string;
+
 	}
 }

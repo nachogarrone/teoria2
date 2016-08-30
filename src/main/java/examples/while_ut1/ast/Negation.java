@@ -3,7 +3,7 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 /** Representación de las negaciones de expresiones booleanas.
-*/
+ */
 public class Negation extends Exp {
 	public final Exp condition;
 
@@ -30,6 +30,10 @@ public class Negation extends Exp {
 		if (obj == null || getClass() != obj.getClass()) return false;
 		Negation other = (Negation)obj;
 		return (this.condition == null ? other.condition == null : this.condition.equals(other.condition));
+	}
+
+	@Override public Object evaluate(HashMap<String,Object> state) {
+		return !(Boolean) condition.evaluate(state);
 	}
 
 //	public static Negation generate(Random random, int min, int max) {

@@ -3,7 +3,7 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 /** Representación de conjunciones booleanas (AND).
-*/
+ */
 public class Conjunction extends Exp {
 	public final Exp left;
 	public final Exp right;
@@ -33,8 +33,13 @@ public class Conjunction extends Exp {
 		if (obj == null || getClass() != obj.getClass()) return false;
 		Conjunction other = (Conjunction)obj;
 		return (this.left == null ? other.left == null : this.left.equals(other.left))
-			&& (this.right == null ? other.right == null : this.right.equals(other.right));
+				&& (this.right == null ? other.right == null : this.right.equals(other.right));
 	}
+
+	@Override public Object evaluate(HashMap<String,Object> state) {
+		return (Boolean)left.evaluate(state) && (Boolean) right.evaluate(state);
+	}
+
 
 //	public static Conjunction generate(Random random, int min, int max) {
 //		BExp left; BExp right;

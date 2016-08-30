@@ -3,7 +3,7 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 /** Representación de sumas.
-*/
+ */
 public class Addition extends Exp {
 	public final Exp left;
 	public final Exp right;
@@ -33,7 +33,11 @@ public class Addition extends Exp {
 		if (obj == null || getClass() != obj.getClass()) return false;
 		Addition other = (Addition)obj;
 		return (this.left == null ? other.left == null : this.left.equals(other.left))
-			&& (this.right == null ? other.right == null : this.right.equals(other.right));
+				&& (this.right == null ? other.right == null : this.right.equals(other.right));
+	}
+
+	@Override public Object evaluate(HashMap<String,Object> state){
+		return (Double)left.evaluate(state) + (Double)right.evaluate(state);
 	}
 
 //	public static Addition generate(Random random, int min, int max) {

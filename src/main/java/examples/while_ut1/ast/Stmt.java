@@ -3,12 +3,13 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 /** Categoría sintáctica de las sentencias (statements) de While, las 
-	construcciones del lenguaje que modifican (potencialmente) los 
-	valores de las variables en el estado del programa.
-*/
+ construcciones del lenguaje que modifican (potencialmente) los
+ valores de las variables en el estado del programa.
+ */
 public abstract class Stmt {
 
 	abstract public String unparse();
+
 
 	@Override public abstract String toString();
 
@@ -21,8 +22,8 @@ public abstract class Stmt {
 		final int NONTERMINAL_COUNT = 4;
 		int i = random.nextInt(TERMINAL_COUNT + NONTERMINAL_COUNT);
 		switch (i) {
-		//Terminals
-		//Non terminals
+			//Terminals
+			//Non terminals
 			case 0: return Assignment.generate(random, min-1, max-1);
 			case 1: return Sequence.generate(random, min-1, max-1);
 			case 2: return IfThenElse.generate(random, min-1, max-1);
@@ -30,4 +31,6 @@ public abstract class Stmt {
 			default: throw new Error("Unexpected error at Stmt.generate()!");
 		}
 	}
+
+	public abstract HashMap<String, Object> evaluate(HashMap<String,Object> state);
 }

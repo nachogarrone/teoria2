@@ -1,7 +1,9 @@
 package examples.while_ut1.ast;
 
+import java.util.HashMap;
+
 /** Representación de las iteraciones while-do.
-*/
+ */
 public class WhileDo extends Stmt {
 	public final Exp condition;
 	public final Stmt body;
@@ -31,7 +33,12 @@ public class WhileDo extends Stmt {
 		if (obj == null || getClass() != obj.getClass()) return false;
 		WhileDo other = (WhileDo)obj;
 		return (this.condition == null ? other.condition == null : this.condition.equals(other.condition))
-			&& (this.body == null ? other.body == null : this.body.equals(other.body));
+				&& (this.body == null ? other.body == null : this.body.equals(other.body));
+	}
+
+	public HashMap<String, Object> evaluate(HashMap<String,Object> state){
+		return state;
+
 	}
 
 //	public static WhileDo generate(Random random, int min, int max) {

@@ -3,7 +3,7 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 /** Representación de las sentencias condicionales.
-*/
+ */
 public class IfThenElse extends Stmt {
 	public final Exp condition;
 	public final Stmt thenBody;
@@ -36,8 +36,22 @@ public class IfThenElse extends Stmt {
 		if (obj == null || getClass() != obj.getClass()) return false;
 		IfThenElse other = (IfThenElse)obj;
 		return (this.condition == null ? other.condition == null : this.condition.equals(other.condition))
-			&& (this.thenBody == null ? other.thenBody == null : this.thenBody.equals(other.thenBody))
-			&& (this.elseBody == null ? other.elseBody == null : this.elseBody.equals(other.elseBody));
+				&& (this.thenBody == null ? other.thenBody == null : this.thenBody.equals(other.thenBody))
+				&& (this.elseBody == null ? other.elseBody == null : this.elseBody.equals(other.elseBody));
+	}
+
+	public HashMap<String, Object> evaluate(HashMap<String,Object> state)
+			throws RuntimeException{
+		if((Boolean)condition.evaluate(state)){
+			return thenBody.evaluate(state);
+		}
+		else{
+			if( elseBody != null ){
+				return elseBody.evaluate(state);
+			}
+		}
+		return state;
+
 	}
 
 //	public static IfThenElse generate(Random random, int min, int max) {

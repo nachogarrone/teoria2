@@ -3,7 +3,7 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 /** Representación de las asignaciones de valores a variables.
-*/
+ */
 public class Assignment extends Stmt {
 	public final String id;
 	public final Exp expression;
@@ -33,7 +33,14 @@ public class Assignment extends Stmt {
 		if (obj == null || getClass() != obj.getClass()) return false;
 		Assignment other = (Assignment)obj;
 		return (this.id == null ? other.id == null : this.id.equals(other.id))
-			&& (this.expression == null ? other.expression == null : this.expression.equals(other.expression));
+				&& (this.expression == null ? other.expression == null : this.expression.equals(other.expression));
+	}
+
+	public HashMap<String, Object> evaluate(HashMap<String,Object> state){
+		Object value = expression.evaluate(state);
+		state.put(id,value);
+		return state;
+
 	}
 
 //	public static Assignment generate(Random random, int min, int max) {

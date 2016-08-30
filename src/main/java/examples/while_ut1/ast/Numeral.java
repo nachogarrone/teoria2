@@ -3,7 +3,7 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 /** Representación de constantes numéricas o numerales.
-*/
+ */
 public class Numeral extends Exp {
 	public final Double number;
 
@@ -30,6 +30,11 @@ public class Numeral extends Exp {
 		if (obj == null || getClass() != obj.getClass()) return false;
 		Numeral other = (Numeral)obj;
 		return (this.number == null ? other.number == null : this.number.equals(other.number));
+	}
+
+	@Override
+	public Object evaluate(HashMap<String,Object> state) {
+		return (Double) number;
 	}
 
 //	public static Numeral generate(Random random, int min, int max) {

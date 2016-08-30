@@ -1,5 +1,7 @@
 package examples.while_ut1.ast;
 
+import java.util.HashMap;
+
 /**
  * Categoría sintáctica de las expresiones aritméticas de While, las
  * construcciones del lenguaje que evalúan a un número.
@@ -16,6 +18,8 @@ public abstract class Exp {
 
     @Override
     public abstract boolean equals(Object obj);
+
+    public abstract Object evaluate(HashMap<String,Object> state)throws RuntimeException;
 
 //	public static Exp generate(Random random, int min, int max) {
 //		final int TERMINAL_COUNT = 2;

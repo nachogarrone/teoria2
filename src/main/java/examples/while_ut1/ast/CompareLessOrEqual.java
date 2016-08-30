@@ -3,7 +3,7 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 /** Representación de las comparaciones por menor o igual.
-*/
+ */
 public class CompareLessOrEqual extends Exp {
 	public final Exp left;
 	public final Exp right;
@@ -33,7 +33,11 @@ public class CompareLessOrEqual extends Exp {
 		if (obj == null || getClass() != obj.getClass()) return false;
 		CompareLessOrEqual other = (CompareLessOrEqual)obj;
 		return (this.left == null ? other.left == null : this.left.equals(other.left))
-			&& (this.right == null ? other.right == null : this.right.equals(other.right));
+				&& (this.right == null ? other.right == null : this.right.equals(other.right));
+	}
+
+	@Override public Object evaluate(HashMap<String,Object> state) {
+		return (Double)left.evaluate(state) <= (Double)right.evaluate(state);
 	}
 
 //	public static CompareLessOrEqual generate(Random random, int min, int max) {

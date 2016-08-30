@@ -3,7 +3,7 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 /** Representación de valores de verdad (cierto o falso).
-*/
+ */
 public class TruthValue extends Exp {
 	public final Boolean value;
 
@@ -33,8 +33,13 @@ public class TruthValue extends Exp {
 	}
 
 	public static TruthValue generate(Random random, int min, int max) {
-		Boolean value; 
+		Boolean value;
 		value = random.nextBoolean();
 		return new TruthValue(value);
 	}
+
+	@Override public Object evaluate(HashMap<String,Object> state) {
+		return value;
+	}
+
 }

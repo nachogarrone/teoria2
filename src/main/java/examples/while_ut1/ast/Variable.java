@@ -3,7 +3,7 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 /** Representación de usos de variable en expresiones.
-*/
+ */
 public class Variable extends Exp {
 	public final String id;
 
@@ -33,8 +33,21 @@ public class Variable extends Exp {
 	}
 
 	public static Variable generate(Random random, int min, int max) {
-		String id; 
+		String id;
 		id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
 		return new Variable(id);
 	}
+
+	@Override public Object evaluate(HashMap<String,Object> state) throws RuntimeException{
+
+		if(state.containsKey(id)){
+			Object value = state.get(id);
+			return value;
+		}
+		else{
+			throw new RuntimeException(id + " No está definida en state");
+		}
+
+	}
+
 }

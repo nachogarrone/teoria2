@@ -3,7 +3,7 @@ package examples.while_ut1.ast;
 import java.util.*;
 
 /** Representación de las secuencias de sentencias.
-*/
+ */
 public class Sequence extends Stmt {
 	public final Stmt[] statements;
 
@@ -13,10 +13,10 @@ public class Sequence extends Stmt {
 
 	@Override public String unparse() {
 		String result = "{ ";
-					for (Stmt statement : statements) {
-						result += statement.unparse() +" ";
-					}
-					return result +"}";
+		for (Stmt statement : statements) {
+			result += statement.unparse() +" ";
+		}
+		return result +"}";
 	}
 
 	@Override public String toString() {
@@ -37,11 +37,16 @@ public class Sequence extends Stmt {
 	}
 
 	public static Sequence generate(Random random, int min, int max) {
-		Stmt[] statements; 
+		Stmt[] statements;
 		statements = new Stmt[random.nextInt(Math.max(0, max)+1)];
 		for (int i = 0; i < statements.length; i++) {
 			statements[i] = Stmt.generate(random, min-1, max-1);
 		}
 		return new Sequence(statements);
+	}
+
+	public HashMap<String, Object> evaluate(HashMap<String,Object> state){
+		return state;
+
 	}
 }
