@@ -37,8 +37,10 @@ public class WhileDo extends Stmt {
 	}
 
 	public HashMap<String, Object> evaluate(HashMap<String,Object> state){
+		while((Boolean) condition.evaluate(state)){
+			state = body.evaluate(state);
+		}
 		return state;
-
 	}
 
 //	public static WhileDo generate(Random random, int min, int max) {
