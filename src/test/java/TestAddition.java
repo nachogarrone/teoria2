@@ -1,6 +1,8 @@
 import examples.while_ut1.ast.Addition;
 import examples.while_ut1.ast.Assignment;
 import examples.while_ut1.ast.Numeral;
+import examples.while_ut1.ast.Stmt;
+import examples.while_ut1.parser.Parser;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -26,5 +28,18 @@ public class TestAddition {
         Double s2 = ((Numeral) sum2.expression).getNumber();
         Assert.assertTrue((s1 + s2) == result);
         System.out.print(s1 + " + " + s2 + " = " + result);
+    }
+
+    @Test
+    public void testAddParse() {
+        try {
+            Stmt statement = (Stmt) (Parser.parse("{a = 1 + 2;}").value);
+            HashMap<String, Object> evaluate = statement.evaluate(new HashMap<String, Object>());
+            Assert.assertEquals(3.0, evaluate.get("a"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail();
+        }
+
     }
 }
