@@ -37,7 +37,7 @@ public class CompareEqual extends Exp {
 	}
 
 	@Override public Object evaluate(HashMap<String,Object> state){
-		return (boolean)left.evaluate(state).equals(right.evaluate(state));
+		return left.evaluate(state).equals(right.evaluate(state));
 	}
 //	public static CompareEqual generate(Random random, int min, int max) {
 //		AExp left; AExp right;
