@@ -13,8 +13,8 @@ public class TestDivision {
     @Test
     public void testDivRandom() {
         Random rand = new Random();
-        Assignment div1 = new Assignment("div1", Numeral.generate(rand, 0, 100));
-        Assignment div2 = new Assignment("div2", Numeral.generate(rand, 0, 100));
+        Assignment div1 = new Assignment("div1", Numeral.generate(rand, 1, 100));
+        Assignment div2 = new Assignment("div2", Numeral.generate(rand, 1, 100));
         Assert.assertNotNull(div1);
         Assert.assertNotNull(div2);
         Division division = new Division(div1.expression, div2.expression);

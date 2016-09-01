@@ -13,9 +13,9 @@ public class Numeral extends Exp {
         this.number = number;
     }
 
-    public static Numeral generate(Random random, int min, double max) {
+    public static Numeral generate(Random random, int min, int max) {
         Double number;
-        number = Math.round(random.nextDouble() * min) / max;
+        number = Double.valueOf(random.nextInt(max-min)+min);
         return new Numeral(number);
     }
 

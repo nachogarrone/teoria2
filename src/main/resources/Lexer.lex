@@ -3,7 +3,8 @@ package examples.while_ut1.parser;
 import java_cup.runtime.Symbol;
 import java.util.*;
 import java.io.*;
-
+ 
+ 
 %%
 
 %unicode
@@ -50,6 +51,8 @@ import java.io.*;
 	{ return new Symbol(RIGHT_PARENTHESIS, yyline, yycolumn, yytext()); }
 "*"
 	{ return new Symbol(ASTERISK, yyline, yycolumn, yytext()); }
+"/"
+	{ return new Symbol(DIVISION, yyline, yycolumn, yytext()); }
 "+"
 	{ return new Symbol(PLUS_SIGN, yyline, yycolumn, yytext()); }
 "-"
@@ -62,6 +65,12 @@ import java.io.*;
 	{ return new Symbol(EQUALS_SIGN, yyline, yycolumn, yytext()); }
 "=="
 	{ return new Symbol(DOUBLE_EQUALS_SIGN, yyline, yycolumn, yytext()); }
+"print"
+	{ return new Symbol(PRINT, yyline, yycolumn, yytext()); }
+"length"
+	{ return new Symbol(LENGTH, yyline, yycolumn, yytext()); }
+"defined"
+	{ return new Symbol(DEFINED, yyline, yycolumn, yytext()); }
 "do"
 	{ return new Symbol(DO, yyline, yycolumn, yytext()); }
 "else"
