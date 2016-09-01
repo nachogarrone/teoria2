@@ -1,5 +1,6 @@
 package examples.while_ut1.ast;
 
+import java.lang.reflect.Type;
 import java.util.*;
 
 /** Representación de sumas.
@@ -37,7 +38,11 @@ public class Addition extends Exp {
 	}
 
 	@Override public Object evaluate(HashMap<String,Object> state){
-		return (Double)left.evaluate(state) + (Double)right.evaluate(state);
+		if((left.evaluate(state) instanceof Double) && (right.evaluate(state) instanceof Double)){
+			return (Double)left.evaluate(state) + (Double)right.evaluate(state);
+		}else {
+			return left.evaluate(state).toString() + right.evaluate(state).toString();
+		}
 	}
 
 //	public static Addition generate(Random random, int min, int max) {
