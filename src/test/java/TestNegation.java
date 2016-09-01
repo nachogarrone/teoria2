@@ -2,17 +2,15 @@ import examples.while_ut1.ast.*;
 import examples.while_ut1.parser.Parser;
 import org.junit.Assert;
 import org.junit.Test;
-import sun.awt.SunHints;
 
 import java.util.HashMap;
-import java.util.Random;
 
 /**
  * Created by Emanuel Chalela on 31/8/2016.
  */
-public class TestConjunction {
+public class TestNegation {
     @Test
-    public void TestConjunctionRandom(){
+    public void TestNegationRandom(){
         TruthValue t1 = new TruthValue(true);
         Assignment bool1 = new Assignment("bool1", t1);
         Assert.assertNotNull(bool1);
@@ -23,19 +21,27 @@ public class TestConjunction {
         Assert.assertNotNull(bool2);
         System.out.print("bool2 = " + bool2.expression + "\n");
 
+        Negation neg1 = new Negation(bool1.expression); // false
+        Assert.assertNotNull(neg1);
 
-        Conjunction conj = new Conjunction(bool1.expression,bool2.expression);
-        Boolean evaluate = (Boolean) conj.evaluate(new HashMap<String, Object>());
-        Assert.assertFalse(evaluate);
+        Negation neg2 = new Negation(bool2.expression); // true
+        Assert.assertNotNull(neg2);
+
+
+        Boolean evaluate1 = (Boolean) neg1.evaluate(new HashMap<String, Object>());
+        Assert.assertFalse(evaluate1);
+
+        Boolean evaluate2 = (Boolean) neg2.evaluate(new HashMap<String, Object>());
+        Assert.assertTrue(evaluate2);
     }
 
     @Test
-    public void TestConjunction(){
+    public void TestNegation(){
         try {
-            Stmt statement = (Stmt) (Parser.parse("{a = true; b = false; if (!(a && b)) then { c = 1;} else { c = 0; }}").value);
+            Stmt statement = (Stmt) (Parser.parse("{a = false; b = !a;}").value);
             HashMap<String, Object> evaluate = statement.evaluate(new HashMap<String, Object>());
-            Assert.assertEquals(1.0, evaluate.get("c"));
-            Assert.assertNotEquals(0.0, evaluate.get("c"));
+            Assert.assertEquals(true, evaluate.get("b"));
+            Assert.assertNotEquals(false, evaluate.get("b"));
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();
