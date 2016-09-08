@@ -1,5 +1,9 @@
 package examples.while_ut1.ast;
 
+import examples.while_ut1.Logger;
+import examples.while_ut1.analyzer.CheckState;
+import examples.while_ut1.analyzer.ObjectState;
+
 import java.util.*;
 
 /** Representación de las negaciones de expresiones booleanas.
@@ -34,6 +38,27 @@ public class Negation extends Exp {
 
 	@Override public Object evaluate(HashMap<String,Object> state) {
 		return !(Boolean) condition.evaluate(state);
+	}
+
+	@Override
+	public Object check(CheckState state) {
+		Object leftO = this.condition.check(state);
+		if (leftO != null) {
+			switch ((ObjectState.Types) leftO) {
+				case NUMERIC:
+					Logger.log(this.getClass().getName(),"No se puede hacer un NOT con un número");
+					break;
+				case STRING:
+					Logger.log(this.getClass().getName(),"No se puede hacer un NOT con un string");
+					break;
+				case BOOLEAN:
+					return ObjectState.Types.BOOLEAN;
+					break;
+			}
+		}
+
+		Logger.log(this.getClass().getName(),"Variable no definidas");
+		return null;
 	}
 
 //	public static Negation generate(Random random, int min, int max) {

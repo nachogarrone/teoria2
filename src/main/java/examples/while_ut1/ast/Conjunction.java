@@ -1,5 +1,9 @@
 package examples.while_ut1.ast;
 
+import examples.while_ut1.Logger;
+import examples.while_ut1.analyzer.CheckState;
+import examples.while_ut1.analyzer.ObjectState;
+
 import java.util.*;
 
 /** Representación de conjunciones booleanas (AND).
@@ -38,6 +42,29 @@ public class Conjunction extends Exp {
 
 	@Override public Object evaluate(HashMap<String,Object> state) {
 		return (Boolean)left.evaluate(state) && (Boolean) right.evaluate(state);
+	}
+	@Override
+	public Object check(CheckState state) {
+		Object leftO = this.left.check(state);
+		Object rightO = this.right.check(state);
+
+		if (leftO != null && rightO != null) {
+			switch ((ObjectState.Types) leftO) {
+				case NUMERIC:
+					Logger.log(this.getClass().getName(),"No se puede hacer un AND con un número");
+					break;
+				case STRING:
+					Logger.log(this.getClass().getName(),"No se puede hacer un AND con un string");
+					break;
+				case BOOLEAN:
+					if (rightO == ObjectState.Types.BOOLEAN) return ObjectState.Types.BOOLEAN;
+					Logger.log(this.getClass().getName(),"No se puede hacer un AND con otra cosa que no sea booleano.");
+					break;
+			}
+		}
+
+		Logger.log(this.getClass().getName(),"Variable no definidas");
+		return null;
 	}
 
 
