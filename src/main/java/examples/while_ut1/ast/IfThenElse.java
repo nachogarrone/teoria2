@@ -1,5 +1,9 @@
 package examples.while_ut1.ast;
 
+import examples.while_ut1.Logger;
+import examples.while_ut1.analyzer.CheckState;
+import examples.while_ut1.analyzer.ObjectState;
+
 import java.util.*;
 
 /** Representación de las sentencias condicionales.
@@ -53,6 +57,59 @@ public class IfThenElse extends Stmt {
 		return state;
 
 	}
+//
+//	public CheckState check(CheckState state) {
+//		Object condition0 = this.condition.check(state);
+//		CheckState thenBody0 = this.thenBody.check(state);
+//		CheckState elseBody0 = this.elseBody.check(state);
+//
+//		if (condition0 != null && thenBody0 != null && elseBody0 != null) {
+//			if ((ObjectState.Types) condition0 == ObjectState.Types.BOOLEAN) {
+//			}
+//			return thenBody0;
+//		} else {
+//			if (condition0 != null) { // thenBody0 es null.
+//				state.getStateHashMap().remove(condition0);
+//				Logger.log(this.getClass().getName(), "Variable no definidas");
+//			} else {
+//				if (thenBody0 != null) { // condition0 es null.
+//					state.getStateHashMap().remove(thenBody0);
+//					Logger.log(this.getClass().getName(), "Variable no definidas");
+//
+//				}
+//			}
+//
+//			Logger.log(this.getClass().getName(), "Variable no definidas");
+//			return null;
+//		}
+//	}
+
+	public CheckState check(CheckState state) {
+		Object condition0 = this.condition.check(state);
+		CheckState thenBody0 = this.thenBody.check(state);
+		CheckState elseBody0 = this.elseBody.check(state);
+
+		if (condition0 != null && thenBody0 != null && elseBody0 != null) {
+			if ((ObjectState.Types) condition0 == ObjectState.Types.BOOLEAN) {
+			}
+			return thenBody0;
+		} else {
+			if (condition0 != null) { // thenBody0 es null.
+				state.getStateHashMap().remove(condition0);
+				Logger.log(this.getClass().getName(), "Variable no definidas");
+			} else {
+				if (thenBody0 != null) { // condition0 es null.
+					state.getStateHashMap().remove(thenBody0);
+					Logger.log(this.getClass().getName(), "Variable no definidas");
+
+				}
+			}
+
+			Logger.log(this.getClass().getName(), "Variable no definidas");
+			return null;
+		}
+	}
+
 
 //	public static IfThenElse generate(Random random, int min, int max) {
 //		BExp condition; Stmt thenBody; Stmt elseBody;
