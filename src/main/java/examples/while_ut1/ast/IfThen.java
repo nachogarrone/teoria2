@@ -33,6 +33,7 @@ public class IfThen extends Stmt {
                 if (thenBody0 != null) { // condition0 es null.
                     state.getStateHashMap().remove(thenBody0);
                     Logger.log(this.getClass().getName(), "Variable no definidas");
+
             }
         }
 
