@@ -9,6 +9,7 @@ public class CheckState {
     HashMap<String, ObjectState> stateHashMap;
 
     public HashMap<String, ObjectState> getStateHashMap() {
+        if (stateHashMap == null) stateHashMap = new HashMap<String, ObjectState>();
         return stateHashMap;
     }
 

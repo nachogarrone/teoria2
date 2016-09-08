@@ -1,5 +1,7 @@
 package examples.while_ut1.ast;
 
+import examples.while_ut1.analyzer.CheckState;
+
 import java.util.HashMap;
 
 public class Length extends Exp {
@@ -50,6 +52,10 @@ public class Length extends Exp {
 			//return (double) ((String)expresion.evaluate(state)).length();
 		// TODO Auto-generated method stub
 		
+	}
+
+	public Object check(CheckState state) {
+		return state;
 	}
 
 }

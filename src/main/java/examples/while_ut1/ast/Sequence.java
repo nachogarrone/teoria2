@@ -1,5 +1,8 @@
 package examples.while_ut1.ast;
 
+import examples.while_ut1.analyzer.CheckState;
+import examples.while_ut1.analyzer.ObjectState;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
@@ -55,6 +58,13 @@ public class Sequence extends Stmt {
     public HashMap<String, Object> evaluate(HashMap<String, Object> state) {
         for (Stmt statement : statements) {
             state = statement.evaluate(state);
+        }
+        return state;
+    }
+
+    public CheckState check(CheckState state) {
+        for (Stmt statement: statements){
+            state = statement.check(state);
         }
         return state;
     }

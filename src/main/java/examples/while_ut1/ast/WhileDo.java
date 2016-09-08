@@ -1,5 +1,7 @@
 package examples.while_ut1.ast;
 
+import examples.while_ut1.analyzer.CheckState;
+
 import java.util.HashMap;
 
 /** Representación de las iteraciones while-do.
@@ -39,6 +41,13 @@ public class WhileDo extends Stmt {
 	public HashMap<String, Object> evaluate(HashMap<String,Object> state){
 		while((Boolean) condition.evaluate(state)){
 			state = body.evaluate(state);
+		}
+		return state;
+	}
+
+	public CheckState check(CheckState state) {
+		while ((Boolean) condition.check(state)){
+			state = body.check(state);
 		}
 		return state;
 	}

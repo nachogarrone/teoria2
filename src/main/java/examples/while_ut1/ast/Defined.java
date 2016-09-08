@@ -1,5 +1,7 @@
 package examples.while_ut1.ast;
 
+import examples.while_ut1.analyzer.CheckState;
+
 import java.util.HashMap;
 
 public class Defined extends Exp {
@@ -15,16 +17,12 @@ public class Defined extends Exp {
 	public String unparse() {
 		// TODO Auto-generated method stub
 		return "defined ( " + var + ")";
-		
 	}
-
-	
 
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "defined ( " + var + ")";
-		
 	}
 
 	@Override
@@ -33,7 +31,6 @@ public class Defined extends Exp {
 		int result = 1;
 		result = result * 31 + (this.var == null ? 0 : this.var.hashCode());
 		return result;
-		
 	}
 
 	@Override
@@ -43,7 +40,6 @@ public class Defined extends Exp {
 		if (obj == null || getClass() != obj.getClass()) return false;
 		Defined other = (Defined)obj;
 		return (this.var == null ? other.var == null : this.var.equals(other.var));
-		
 	}
 
 	@Override
@@ -51,7 +47,11 @@ public class Defined extends Exp {
 			throws RuntimeException {
 			return state.containsKey(var);
 		// TODO Auto-generated method stub
-		
 	}
+
+	public Object check(CheckState state) {
+		return state;
+	}
+
 
 }

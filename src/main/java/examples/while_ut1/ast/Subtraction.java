@@ -1,5 +1,9 @@
 package examples.while_ut1.ast;
 
+import examples.while_ut1.Logger;
+import examples.while_ut1.analyzer.CheckState;
+import examples.while_ut1.analyzer.ObjectState;
+
 import java.util.*;
 
 /** Representación de restas.
@@ -39,6 +43,30 @@ public class Subtraction extends Exp {
 	@Override
 	public Object evaluate(HashMap<String,Object> state) {
 		return (Double) left.evaluate(state) - (Double) right.evaluate(state);
+	}
+
+	public Object check(CheckState state) {
+		Object leftO = this.left.check(state);
+		Object rightO = this.right.check(state);
+
+		if (leftO != null && rightO != null) {
+			switch ((ObjectState.Types) leftO) {
+				case NUMERIC:
+					if (rightO == ObjectState.Types.NUMERIC) return ObjectState.Types.NUMERIC;
+					Logger.log(this.getClass().getName(),"No se puede restar numeros con otros tipos de variables");
+					break;
+				case STRING:
+					if (rightO == ObjectState.Types.STRING) return ObjectState.Types.STRING;
+					Logger.log(this.getClass().getName(),"No se puede restar string con otros tipos de variables");
+					break;
+				case BOOLEAN:
+					Logger.log(this.getClass().getName(),"No se puede restar boolenaos");
+					break;
+			}
+		}
+
+		Logger.log(this.getClass().getName(),"Variable no definidas");
+		return null;
 	}
 //
 //	public static Subtraction generate(Random random, int min, int max) {
