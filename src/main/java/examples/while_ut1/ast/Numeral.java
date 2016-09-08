@@ -1,5 +1,7 @@
 package examples.while_ut1.ast;
 
+import examples.while_ut1.analyzer.CheckState;
+
 import java.util.HashMap;
 import java.util.Random;
 
@@ -15,7 +17,7 @@ public class Numeral extends Exp {
 
     public static Numeral generate(Random random, int min, int max) {
         Double number;
-        number = Double.valueOf(random.nextInt(max-min)+min);
+        number = Double.valueOf(random.nextInt(max - min) + min);
         return new Numeral(number);
     }
 
@@ -50,6 +52,10 @@ public class Numeral extends Exp {
 
     @Override
     public Object evaluate(HashMap<String, Object> state) {
-        return (Double) number;
+        return number;
+    }
+
+    public Object check(CheckState state) {
+        return number;
     }
 }

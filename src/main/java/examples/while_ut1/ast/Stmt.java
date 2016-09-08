@@ -1,5 +1,7 @@
 package examples.while_ut1.ast;
 
+import examples.while_ut1.analyzer.CheckState;
+
 import java.util.*;
 
 /** Categoría sintáctica de las sentencias (statements) de While, las 
@@ -33,4 +35,6 @@ public abstract class Stmt {
 	}
 
 	public abstract HashMap<String, Object> evaluate(HashMap<String,Object> state);
+
+	public abstract CheckState check(CheckState state);
 }

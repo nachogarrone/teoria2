@@ -1,5 +1,7 @@
 package examples.while_ut1.ast;
 
+import examples.while_ut1.analyzer.CheckState;
+
 import java.util.*;
 
 /** Representación de las asignaciones de valores a variables.
@@ -40,6 +42,10 @@ public class Assignment extends Stmt {
 		Object value = expression.evaluate(state);
 		state.put(id,value);
 		return state;
+	}
+
+	public CheckState check(CheckState state) {
+		Object check = this.expression.check(state);
 
 	}
 
