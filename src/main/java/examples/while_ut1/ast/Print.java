@@ -1,5 +1,7 @@
 package examples.while_ut1.ast;
 
+import examples.while_ut1.analyzer.CheckState;
+
 import java.util.HashMap;
 
 public class Print extends Stmt {
@@ -47,6 +49,10 @@ public class Print extends Stmt {
 	public HashMap<String, Object> evaluate(HashMap<String, Object> state) {
 		System.out.println((this.expresion.evaluate(state)).toString());
 		// TODO Auto-generated method stub
+		return state;
+	}
+
+	public CheckState check(CheckState state) {
 		return state;
 	}
 

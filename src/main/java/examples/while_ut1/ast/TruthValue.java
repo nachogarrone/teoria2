@@ -1,5 +1,7 @@
 package examples.while_ut1.ast;
 
+import examples.while_ut1.analyzer.CheckState;
+
 import java.util.*;
 
 /** Representación de valores de verdad (cierto o falso).
@@ -39,6 +41,10 @@ public class TruthValue extends Exp {
 	}
 
 	@Override public Object evaluate(HashMap<String,Object> state) {
+		return value;
+	}
+
+	public Object check(CheckState state) {
 		return value;
 	}
 

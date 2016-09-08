@@ -1,5 +1,7 @@
 package examples.while_ut1.ast;
 
+import examples.while_ut1.analyzer.CheckState;
+
 import java.util.HashMap;
 
 /** Representación de cadenas de caracteres
@@ -27,7 +29,6 @@ public class Str extends Exp {
 		Str str = (Str) o;
 
 		return string != null ? string.equals(str.string) : str.string == null;
-
 	}
 
 	@Override
@@ -36,8 +37,10 @@ public class Str extends Exp {
 	}
 
 	public Object evaluate(HashMap<String,Object> state){
-
 		return this.string;
+	}
 
+	public Object check(CheckState state) {
+		return string;
 	}
 }

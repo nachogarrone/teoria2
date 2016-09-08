@@ -53,7 +53,6 @@ public class Negation extends Exp {
 					break;
 				case BOOLEAN:
 					return ObjectState.Types.BOOLEAN;
-					break;
 			}
 		}
 

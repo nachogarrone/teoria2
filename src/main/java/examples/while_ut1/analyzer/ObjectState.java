@@ -7,6 +7,15 @@ public class ObjectState {
     Types variable;
     Boolean initialized;
 
+    public ObjectState(Types variable, Boolean initialized) {
+        this.variable = variable;
+        this.initialized = initialized;
+    }
+
+    public ObjectState() {
+        this.initialized = false;
+    }
+
     public Types getVariable() {
         return variable;
     }
