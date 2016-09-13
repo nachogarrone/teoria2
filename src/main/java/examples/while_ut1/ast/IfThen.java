@@ -20,26 +20,18 @@ public class IfThen extends Stmt {
 
     @Override
     public CheckState check(CheckState state) {
-        Object condition0 = this.condition.check(state);
-        CheckState thenBody0 = this.thenBody.check(state);
+        Object condition = this.condition.check(state);
+        CheckState body = this.thenBody.check(state);
 
-        if (condition0 != null && thenBody0 != null) {
-            if (condition0 == ObjectState.Types.BOOLEAN) {
-                return thenBody0;
-            }
-        } else {
-            // error
-            if (condition0 != null) {
-                state.getStateHashMap().remove(condition0);
-                Logger.log(this.getClass().getName(), "Variable no definidas");
-            }
-            if (thenBody0 != null) {
-                state.getStateHashMap().remove(thenBody0);
-                Logger.log(this.getClass().getName(), "Variable no definidas");
-            }
+        if (condition == null || thenBody == null) {
+            Logger.log(this.getClass().getName(), "El compilador no se puede recuperar!");
         }
-        Logger.log(this.getClass().getName(), "Variable no definidas");
-        return null;
+
+        if (condition != ObjectState.Types.BOOLEAN) {
+            Logger.log(this.getClass().getName(), "Condición de IF no Booleana");
+        }
+
+        return body;
     }
 
 

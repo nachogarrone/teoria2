@@ -1,5 +1,6 @@
 package examples.while_ut1.ast;
 
+import examples.while_ut1.Logger;
 import examples.while_ut1.analyzer.CheckState;
 import examples.while_ut1.analyzer.ObjectState;
 
@@ -51,6 +52,7 @@ public class Assignment extends Stmt {
     }
 
     public CheckState check(CheckState state) {
+        if (state == null) Logger.log(getClass().getName(), "Variable no definida. El compilador no se puede recuperar!");
         state.getStateHashMap().put(id, new ObjectState(((ObjectState)expression.check(state)).getVariable(), true));
         return state;
     }

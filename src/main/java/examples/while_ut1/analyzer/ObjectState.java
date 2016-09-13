@@ -36,6 +36,6 @@ public class ObjectState {
     public enum Types{
         NUMERIC,
         STRING,
-        BOOLEAN;
+        BOOLEAN
     }
 }
