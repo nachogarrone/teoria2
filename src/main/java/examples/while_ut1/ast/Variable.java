@@ -60,8 +60,8 @@ public class Variable extends Exp {
     }
 
     public Object check(CheckState state) {
-        return state.getStateHashMap().get(id) == null ? Logger.log(getClass().getName(), "Variable no definda") : state
-                .getStateHashMap().get(id);
+        return state.getStateHashMap().get(id) == null ? Logger.log(getClass().getName(), "Variable no definida") :
+                state.getStateHashMap().get(id);
     }
 
 }

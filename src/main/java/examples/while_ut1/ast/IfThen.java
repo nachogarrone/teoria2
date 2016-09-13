@@ -17,26 +17,27 @@ public class IfThen extends Stmt {
         this.condition = condition;
         this.thenBody = thenBody;
     }
+
     @Override
     public CheckState check(CheckState state) {
         Object condition0 = this.condition.check(state);
         CheckState thenBody0 = this.thenBody.check(state);
 
         if (condition0 != null && thenBody0 != null) {
-            if ((ObjectState.Types) condition0 == ObjectState.Types.BOOLEAN)
+            if (condition0 == ObjectState.Types.BOOLEAN) {
                 return thenBody0;
+            }
         } else {
-            if (condition0 != null) { // thenBody0 es null.
+            // error
+            if (condition0 != null) {
                 state.getStateHashMap().remove(condition0);
                 Logger.log(this.getClass().getName(), "Variable no definidas");
-            } else {
-                if (thenBody0 != null) { // condition0 es null.
-                    state.getStateHashMap().remove(thenBody0);
-                    Logger.log(this.getClass().getName(), "Variable no definidas");
-                }
+            }
+            if (thenBody0 != null) {
+                state.getStateHashMap().remove(thenBody0);
+                Logger.log(this.getClass().getName(), "Variable no definidas");
             }
         }
-
         Logger.log(this.getClass().getName(), "Variable no definidas");
         return null;
     }
@@ -77,8 +78,8 @@ public class IfThen extends Stmt {
                 && (this.thenBody == null ? other.thenBody == null : this.thenBody.equals(other.thenBody));
     }
 
-    public HashMap<String, Object> evaluate(HashMap<String,Object> state) throws RuntimeException{
-        if((Boolean)condition.evaluate(state)){
+    public HashMap<String, Object> evaluate(HashMap<String, Object> state) throws RuntimeException {
+        if ((Boolean) condition.evaluate(state)) {
             return thenBody.evaluate(state);
         }
         return state;
