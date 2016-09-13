@@ -60,23 +60,26 @@ public class Addition extends Exp {
         Object rightO = this.right.check(state);
 
         if (leftO != null && rightO != null) {
-            switch ((ObjectState.Types) leftO) {
-                case NUMERIC:
-                    if (rightO == ObjectState.Types.NUMERIC) return ObjectState.Types.NUMERIC;
-                    Logger.log(this.getClass().getName(),"No se puede sumar numeros con otros tipos de variables");
-                    break;
-                case STRING:
-                    if (rightO == ObjectState.Types.STRING) return ObjectState.Types.STRING;
-                    Logger.log(this.getClass().getName(),"No se puede sumar string con otros tipos de variables");
-                    break;
-                case BOOLEAN:
-                    Logger.log(this.getClass().getName(),"No se puede sumar boolenaos");
-                    break;
-            }
+            Logger.log(this.getClass().getName(), "El compilador no se puede recuperar!");
         }
 
-        Logger.log(this.getClass().getName(),"Variable no definidas");
-        return null;
+        switch ((ObjectState.Types) leftO) {
+            case NUMERIC:
+                if (rightO == ObjectState.Types.NUMERIC) return ObjectState.Types.NUMERIC;
+                Logger.log(this.getClass().getName(), "No se puede sumar numeros con otros tipos de variables");
+                return ObjectState.Types.NUMERIC;
+            case STRING:
+                if (rightO == ObjectState.Types.STRING) return ObjectState.Types.STRING;
+                Logger.log(this.getClass().getName(), "No se puede sumar string con otros tipos de variables");
+                return ObjectState.Types.NUMERIC;
+            case BOOLEAN:
+                Logger.log(this.getClass().getName(), "No se puede sumar boolenaos");
+                return ObjectState.Types.NUMERIC;
+            default:
+                Logger.log(this.getClass().getName(), "Tipo desconocido en suma");
+                return ObjectState.Types.NUMERIC;
+        }
+
     }
 
 //	public static Addition generate(Random random, int min, int max) {

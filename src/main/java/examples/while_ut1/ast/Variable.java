@@ -49,7 +49,6 @@ public class Variable extends Exp {
 
     @Override
     public Object evaluate(HashMap<String, Object> state) throws RuntimeException {
-
         if (state.containsKey(id)) {
             Object value = state.get(id);
             return value;
@@ -60,8 +59,8 @@ public class Variable extends Exp {
     }
 
     public Object check(CheckState state) {
-        return state.getStateHashMap().get(id) == null ? Logger.log(getClass().getName(), "Variable no definida") :
-                state.getStateHashMap().get(id);
+        if (state.getStateHashMap().get(id) == null) Logger.log(getClass().getName(), "Variable no definida. El compilador no se puede recuperar!");
+        return state.getStateHashMap().get(id);
     }
 
 }

@@ -67,34 +67,18 @@ public class IfThenElse extends Stmt {
         CheckState thenBody = this.thenBody.check(state);
         CheckState elseBody = this.elseBody.check(state);
 
-
-        if (condition != null && thenBody != null && elseBody !=null) {
-            if (condition == ObjectState.Types.BOOLEAN) {
-                // evaluar then y else
-                CheckState result = thenBody;
-                boolean res = result.getStateHashMap().entrySet().retainAll(elseBody.getStateHashMap().entrySet());
-                return result;
-            }
-        } else {
-            // error
-            if (condition != null) {
-                state.getStateHashMap().remove(condition);
-                Logger.log(this.getClass().getName(), "Variable no definidas");
-            }
-            if (thenBody != null) {
-                state.getStateHashMap().remove(thenBody);
-                Logger.log(this.getClass().getName(), "Variable no definidas");
-            }
-            if (elseBody != null) {
-                state.getStateHashMap().remove(elseBody);
-                Logger.log(this.getClass().getName(), "Variable no definidas");
-            }
+        if (condition == null || thenBody == null || elseBody == null) {
+            Logger.log(this.getClass().getName(), "El compilador no se puede recuperar!");
         }
-        Logger.log(this.getClass().getName(), "Variable no definidas");
-        return null;
+
+        if (condition != ObjectState.Types.BOOLEAN) {
+            Logger.log(this.getClass().getName(), "Condición de IF no Booleana");
+        }
+
+        CheckState result = thenBody;
+        result.getStateHashMap().entrySet().retainAll(elseBody.getStateHashMap().entrySet());
+        return result;
     }
-
-
 
 
 //	public static IfThenElse generate(Random random, int min, int max) {
@@ -104,4 +88,4 @@ public class IfThenElse extends Stmt {
 //		elseBody = Stmt.generate(random, min-1, max-1);
 //		return new IfThenElse(condition, thenBody, elseBody);
 //	}
-    }
+}
