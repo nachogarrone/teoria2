@@ -153,6 +153,7 @@ public class TestSemanticAnalitycs {
         }
     }
 
+    @Test
     public void test11() throws Exception {
         Stmt statement = (Stmt) (Parser.parse("{x = true; while x do x = 1; x = x + 1;}").value);
         CheckState state = statement.check(new CheckState());
