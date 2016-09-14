@@ -15,11 +15,9 @@ public class TestSemanticAnalitycs {
     public void test1() {
         try {
             Stmt statement = (Stmt) (Parser.parse("{x = true * 2;}").value);
-
             CheckState checkS = statement.check(new CheckState());
             checkS.getStateHashMap().containsKey("x");
             Assert.assertNotNull(checkS.getStateHashMap().values());
-            //Assert.assertEquals(100.0, evaluate.get("x"));
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();
@@ -30,10 +28,9 @@ public class TestSemanticAnalitycs {
     public void test2(){
         try{
             Stmt statement =(Stmt) (Parser.parse("{x = 1 + false;}").value);
-            HashMap<String, Object> evaluate = statement.evaluate(new HashMap<String, Object>());
-            Assert.assertNotNull(evaluate.get("x"));
-            //Assert.assertEquals(100.0, evaluate.get("x"));
-
+            CheckState checkS = statement.check(new CheckState());
+            checkS.getStateHashMap().containsKey("x");
+            Assert.assertNotNull(checkS.getStateHashMap().values());
         }
         catch (Exception e){
             e.printStackTrace();
@@ -44,10 +41,9 @@ public class TestSemanticAnalitycs {
     public void test3(){
         try{
             Stmt statement =(Stmt) (Parser.parse("{x = x + 1;}").value);
-            HashMap<String, Object> evaluate = statement.evaluate(new HashMap<String, Object>());
-            Assert.assertNotNull(evaluate.get("x"));
-            //Assert.assertEquals(100.0, evaluate.get("x"));
-
+            CheckState checkS = statement.check(new CheckState());
+            checkS.getStateHashMap().containsKey("x");
+            Assert.assertNotNull(checkS.getStateHashMap().values());
         }
         catch (Exception e){
             e.printStackTrace();
@@ -58,9 +54,34 @@ public class TestSemanticAnalitycs {
     public void test4(){
         try{
             Stmt statement =(Stmt) (Parser.parse("{x = y * 2;}").value);
-            HashMap<String, Object> evaluate = statement.evaluate(new HashMap<String, Object>());
-            Assert.assertNotNull(evaluate.get("x"));
-            //Assert.assertEquals(100.0, evaluate.get("x"));
+            CheckState checkS = statement.check(new CheckState());
+            checkS.getStateHashMap().containsKey("x");
+            checkS.getStateHashMap().containsKey("y");
+            Assert.assertNotNull(checkS.getStateHashMap().values());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+    @Test
+    public void test5(){
+        try{
+            Stmt statement =(Stmt) (Parser.parse("{while 1 do {};}").value);
+            CheckState checkS = statement.check(new CheckState());
+            Assert.assertNotNull(checkS.getStateHashMap().values());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+     @Test
+    public void test6(){
+        try{
+            Stmt statement =(Stmt) (Parser.parse("{if 2 then {} else {};}").value);
+            CheckState checkS = statement.check(new CheckState());
+            Assert.assertNotNull(checkS.getStateHashMap().values());
 
         }
         catch (Exception e){
@@ -68,42 +89,12 @@ public class TestSemanticAnalitycs {
             Assert.fail();
         }
     }
-    //@Test
-//    public void test5(){
-//        try{
-//            Stmt statement =(Stmt) (Parser.parse("{while 1 do {};}").value);
-//            HashMap<String, Object> evaluate = statement.evaluate(new HashMap<String, Object>());
-//            Assert.assertNotNull(evaluate.get(""));
-//            //Assert.assertEquals(100.0, evaluate.get("x"));
-//
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//            Assert.fail();
-//        }
-//    }
-    // @Test
-//    public void test6(){
-//        try{
-//            Stmt statement =(Stmt) (Parser.parse("{if 2 then {} else {};}").value);
-//            HashMap<String, Object> evaluate = statement.evaluate(new HashMap<String, Object>());
-//            Assert.assertNotNull(evaluate.get(""));
-//            //Assert.assertEquals(100.0, evaluate.get("x"));
-//
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//            Assert.fail();
-//        }
-//    }
     @Test
     public void test7(){
         try{
             Stmt statement =(Stmt) (Parser.parse("{if \"x\" then {} else {};}").value);
-            HashMap<String, Object> evaluate = statement.evaluate(new HashMap<String, Object>());
-            Assert.assertNotNull(evaluate.get(""));
-            //Assert.assertEquals(100.0, evaluate.get("x"));
-
+            CheckState checkS = statement.check(new CheckState());
+            Assert.assertNotNull(checkS.getStateHashMap().values());
         }
         catch (Exception e){
             e.printStackTrace();
@@ -114,10 +105,8 @@ public class TestSemanticAnalitycs {
     public void test75(){
         try{
             Stmt statement =(Stmt) (Parser.parse("{x = \"x\" + 2;}").value);
-            HashMap<String, Object> evaluate = statement.evaluate(new HashMap<String, Object>());
-            Assert.assertNotNull(evaluate.get(""));
-            //Assert.assertEquals(100.0, evaluate.get("x"));
-
+            CheckState checkS = statement.check(new CheckState());
+            Assert.assertNotNull(checkS.getStateHashMap().values());
         }
         catch (Exception e){
             e.printStackTrace();
