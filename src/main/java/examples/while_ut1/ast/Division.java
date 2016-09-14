@@ -63,18 +63,18 @@ public class Division extends Exp {
 
         switch ((ObjectState.Types) leftO) {
             case NUMERIC:
-                if (rightO == ObjectState.Types.NUMERIC) return ObjectState.Types.NUMERIC;
+                if (rightO == ObjectState.Types.NUMERIC) return new ObjectState(ObjectState.Types.NUMERIC, true);
                 Logger.log(this.getClass().getName(), "No se puede dividir numeros con otros tipos de variables");
-                return ObjectState.Types.NUMERIC;
+                return new ObjectState(ObjectState.Types.NUMERIC, true);
             case STRING:
                 Logger.log(this.getClass().getName(), "No se puede dividir con un string.");
-                return ObjectState.Types.NUMERIC;
+                return new ObjectState(ObjectState.Types.NUMERIC, true);
             case BOOLEAN:
                 Logger.log(this.getClass().getName(), "No se puede dividir con un booleano.");
-                return ObjectState.Types.NUMERIC;
+                return new ObjectState(ObjectState.Types.NUMERIC, true);
             default:
                 Logger.log(this.getClass().getName(), "No se puede dividir.");
-                return ObjectState.Types.NUMERIC;
+                return new ObjectState(ObjectState.Types.NUMERIC, true);
         }
     }
 

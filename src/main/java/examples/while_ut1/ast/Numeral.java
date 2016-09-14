@@ -1,6 +1,7 @@
 package examples.while_ut1.ast;
 
 import examples.while_ut1.analyzer.CheckState;
+import examples.while_ut1.analyzer.ObjectState;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -56,6 +57,6 @@ public class Numeral extends Exp {
     }
 
     public Object check(CheckState state) {
-        return number;
+        return new ObjectState(ObjectState.Types.NUMERIC, false);
     }
 }

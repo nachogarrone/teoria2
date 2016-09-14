@@ -1,6 +1,7 @@
 package examples.while_ut1.ast;
 
 import examples.while_ut1.analyzer.CheckState;
+import examples.while_ut1.analyzer.ObjectState;
 
 import java.util.*;
 
@@ -45,7 +46,7 @@ public class TruthValue extends Exp {
 	}
 
 	public Object check(CheckState state) {
-		return value;
+		return new ObjectState(ObjectState.Types.BOOLEAN, true);
 	}
 
 }

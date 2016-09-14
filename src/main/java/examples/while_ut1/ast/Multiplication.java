@@ -59,23 +59,25 @@ public class Multiplication extends Exp {
             Logger.log(this.getClass().getName(), "El compilador no se puede recuperar!");
         }
 
-        switch ((ObjectState.Types) leftO) {
+        ObjectState.Types leftType = ((ObjectState)leftO).getVariable();
+        ObjectState.Types rightType = ((ObjectState)rightO).getVariable();
+        switch (leftType) {
             case NUMERIC:
-                if (rightO == ObjectState.Types.NUMERIC) return ObjectState.Types.NUMERIC;
-                if (rightO == ObjectState.Types.STRING) return ObjectState.Types.STRING;
+                if (rightType == ObjectState.Types.NUMERIC) return new ObjectState(ObjectState.Types.NUMERIC, true);
+                if (rightType == ObjectState.Types.STRING) return new ObjectState(ObjectState.Types.STRING, true);
                 Logger.log(this.getClass().getName(), "No se puede multiplocar numeros con booleanos");
-                return ObjectState.Types.NUMERIC;
+                return new ObjectState(ObjectState.Types.NUMERIC, true);
             case STRING:
-                if (rightO == ObjectState.Types.NUMERIC) return ObjectState.Types.STRING;
-                if (rightO == ObjectState.Types.STRING) return ObjectState.Types.STRING;
+                if (rightType == ObjectState.Types.NUMERIC) return new ObjectState(ObjectState.Types.STRING, true);
+                if (rightType == ObjectState.Types.STRING) return new ObjectState(ObjectState.Types.STRING, true);
                 Logger.log(this.getClass().getName(), "No se puede multiplicar con un booleano.");
-                return ObjectState.Types.STRING;
+                return new ObjectState(ObjectState.Types.STRING, true);
             case BOOLEAN:
                 Logger.log(this.getClass().getName(), "No se puede multiplicar con un booleano.");
-                return ObjectState.Types.NUMERIC;
+                return new ObjectState(ObjectState.Types.NUMERIC, true);
             default:
                 Logger.log(this.getClass().getName(), "No se puede dividir.");
-                return ObjectState.Types.NUMERIC;
+                return new ObjectState(ObjectState.Types.NUMERIC, true);
         }
     }
 //	public static Multiplication generate(Random random, int min, int max) {

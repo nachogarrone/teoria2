@@ -55,7 +55,7 @@ public class Length extends Exp {
 	}
 
 	public Object check(CheckState state) {
-		return state;
+		return state.getStateHashMap().get(expresion);
 	}
 
 }

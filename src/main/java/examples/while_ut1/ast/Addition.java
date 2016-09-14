@@ -59,25 +59,27 @@ public class Addition extends Exp {
         Object leftO = this.left.check(state);
         Object rightO = this.right.check(state);
 
-        if (leftO != null && rightO != null) {
+        if (leftO == null || rightO == null) {
             Logger.log(this.getClass().getName(), "El compilador no se puede recuperar!");
         }
 
-        switch ((ObjectState.Types) leftO) {
+        ObjectState.Types leftType = ((ObjectState)leftO).getVariable();
+        ObjectState.Types rightType = ((ObjectState)rightO).getVariable();
+        switch (leftType) {
             case NUMERIC:
-                if (rightO == ObjectState.Types.NUMERIC) return ObjectState.Types.NUMERIC;
+                if (rightType == ObjectState.Types.NUMERIC) return new ObjectState(ObjectState.Types.NUMERIC, true);
                 Logger.log(this.getClass().getName(), "No se puede sumar numeros con otros tipos de variables");
-                return ObjectState.Types.NUMERIC;
+                return new ObjectState(ObjectState.Types.NUMERIC, true);
             case STRING:
-                if (rightO == ObjectState.Types.STRING) return ObjectState.Types.STRING;
+                if (rightType == ObjectState.Types.STRING) return new ObjectState(ObjectState.Types.STRING, true);
                 Logger.log(this.getClass().getName(), "No se puede sumar string con otros tipos de variables");
-                return ObjectState.Types.NUMERIC;
+                return new ObjectState(ObjectState.Types.NUMERIC, true);
             case BOOLEAN:
                 Logger.log(this.getClass().getName(), "No se puede sumar boolenaos");
-                return ObjectState.Types.NUMERIC;
+                return new ObjectState(ObjectState.Types.NUMERIC, true);
             default:
                 Logger.log(this.getClass().getName(), "Tipo desconocido en suma");
-                return ObjectState.Types.NUMERIC;
+                return new ObjectState(ObjectState.Types.NUMERIC, true);
         }
 
     }

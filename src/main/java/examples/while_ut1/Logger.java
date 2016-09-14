@@ -14,6 +14,8 @@ public class Logger {
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:MM:ss");
 
+        System.out.println(simpleDateFormat.format(date) + ": " + key + " : " + message);
+
         try {
             writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("log.txt"), "utf-8"));
             writer.write(simpleDateFormat.format(date) + ": " + key + " : " + message);

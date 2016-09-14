@@ -54,18 +54,19 @@ public class Negation extends Exp {
             Logger.log(this.getClass().getName(), "El compilador no se puede recuperar!");
         }
 
-        switch ((ObjectState.Types) leftO) {
+        ObjectState.Types type = ((ObjectState) leftO).getVariable();
+        switch (type) {
             case NUMERIC:
                 Logger.log(this.getClass().getName(), "No se puede hacer un NOT con un número");
-                return ObjectState.Types.BOOLEAN;
+                return new ObjectState(ObjectState.Types.BOOLEAN, true);
             case STRING:
                 Logger.log(this.getClass().getName(), "No se puede hacer un NOT con un string");
-                return ObjectState.Types.BOOLEAN;
+                return new ObjectState(ObjectState.Types.BOOLEAN, true);
             case BOOLEAN:
-                return ObjectState.Types.BOOLEAN;
+                return new ObjectState(ObjectState.Types.BOOLEAN, true);
             default:
                 Logger.log(this.getClass().getName(), "No se puede hacer un NOT con variable desconocida");
-                return ObjectState.Types.BOOLEAN;
+                return new ObjectState(ObjectState.Types.BOOLEAN, true);
         }
     }
 

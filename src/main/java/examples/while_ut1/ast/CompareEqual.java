@@ -62,20 +62,20 @@ public class CompareEqual extends Exp {
 
         switch ((ObjectState.Types) leftO) {
             case NUMERIC:
-                if (rightO == ObjectState.Types.NUMERIC) return ObjectState.Types.NUMERIC;
+                if (rightO == ObjectState.Types.NUMERIC) return new ObjectState(ObjectState.Types.NUMERIC, true);
                 Logger.log(this.getClass().getName(), "No se puede comparar con distintos tipos de variables");
-                return ObjectState.Types.BOOLEAN;
+                return new ObjectState(ObjectState.Types.BOOLEAN, true);
             case STRING:
-                if (rightO == ObjectState.Types.STRING) return ObjectState.Types.STRING;
+                if (rightO == ObjectState.Types.STRING) return new ObjectState(ObjectState.Types.STRING, true);
                 Logger.log(this.getClass().getName(), "No se puede comparar con distintos tipos de variables");
-                return ObjectState.Types.BOOLEAN;
+                return new ObjectState(ObjectState.Types.BOOLEAN, true);
             case BOOLEAN:
-                if (rightO == ObjectState.Types.BOOLEAN) return ObjectState.Types.BOOLEAN;
+                if (rightO == ObjectState.Types.BOOLEAN) return new ObjectState(ObjectState.Types.BOOLEAN, true);
                 Logger.log(this.getClass().getName(), "No se puede comparar con distintos tipos de variables");
-                return ObjectState.Types.BOOLEAN;
+                return new ObjectState(ObjectState.Types.BOOLEAN, true);
             default:
                 Logger.log(this.getClass().getName(), "No se puede comparar con distintos tipos de variables");
-                return ObjectState.Types.BOOLEAN;
+                return new ObjectState(ObjectState.Types.BOOLEAN, true);
         }
     }
 //	public static CompareEqual generate(Random random, int min, int max) {

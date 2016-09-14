@@ -71,8 +71,9 @@ public class IfThenElse extends Stmt {
             Logger.log(this.getClass().getName(), "El compilador no se puede recuperar!");
         }
 
-        if (condition != ObjectState.Types.BOOLEAN) {
-            Logger.log(this.getClass().getName(), "Condición de IF no Booleana");
+        ObjectState conditionType = (ObjectState) condition;
+        if (!conditionType.getVariable().equals(ObjectState.Types.BOOLEAN)) {
+            Logger.log(this.getClass().getName(), "Condición de IF no Booleana. Tipo: " + conditionType.getVariable());
         }
 
         CheckState result = thenBody;

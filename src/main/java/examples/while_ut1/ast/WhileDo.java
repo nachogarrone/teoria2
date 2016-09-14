@@ -1,6 +1,8 @@
 package examples.while_ut1.ast;
 
+import examples.while_ut1.Logger;
 import examples.while_ut1.analyzer.CheckState;
+import examples.while_ut1.analyzer.ObjectState;
 
 import java.util.HashMap;
 
@@ -46,10 +48,16 @@ public class WhileDo extends Stmt {
 	}
 
 	public CheckState check(CheckState state) {
-		while ((Boolean) condition.check(state)){
-			state = body.check(state);
+		ObjectState checkCondition = (ObjectState) condition.check(state);
+		if (!(checkCondition).getVariable().equals(ObjectState.Types.BOOLEAN)){
+			Logger.log(this.getClass().getName(), "While no tiene condición booleana. ");
 		}
-		return state;
+
+		CheckState checkBody = body.check(state);
+		CheckState result = state;
+		result.getStateHashMap().entrySet().retainAll(checkBody.getStateHashMap().entrySet());
+
+		return result;
 	}
 
 //	public static WhileDo generate(Random random, int min, int max) {

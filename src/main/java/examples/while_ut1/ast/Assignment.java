@@ -52,8 +52,17 @@ public class Assignment extends Stmt {
     }
 
     public CheckState check(CheckState state) {
-        if (state == null) Logger.log(getClass().getName(), "Variable no definida. El compilador no se puede recuperar!");
-        state.getStateHashMap().put(id, new ObjectState(((ObjectState)expression.check(state)).getVariable(), true));
+        if (state == null) {
+            Logger.log(getClass().getName(), "Variable no definida. El compilador no se puede recuperar!");
+        }
+        ObjectState newState = (ObjectState) expression.check(state);
+        if (state.getStateHashMap() != null && state.getStateHashMap().containsKey(id)) {
+            if (!state.getStateHashMap().get(id).getVariable().equals(newState.getVariable())) {
+                Logger.log(getClass().getName(), "Variable ya definida. No se puede cambiar el tipo!");
+            }
+        } else {
+            state.getStateHashMap().put(id, newState);
+        }
         return state;
     }
 

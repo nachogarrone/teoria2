@@ -111,7 +111,7 @@ public class TestSemanticAnalitycs {
         }
     }
     @Test
-    public void test7(){
+    public void test75(){
         try{
             Stmt statement =(Stmt) (Parser.parse("{x = \"x\" + 2;}").value);
             HashMap<String, Object> evaluate = statement.evaluate(new HashMap<String, Object>());
@@ -143,7 +143,7 @@ public class TestSemanticAnalitycs {
         try{
             Stmt statement =(Stmt) (Parser.parse("{x = true <= \"false\";}").value);
             HashMap<String, Object> evaluate = statement.evaluate(new HashMap<String, Object>());
-            Assert.assertNotNull(evaluate.get(""));
+            Assert.assertNotNull(evaluate.get("x"));
             //Assert.assertEquals(100.0, evaluate.get("x"));
 
         }
@@ -153,33 +153,19 @@ public class TestSemanticAnalitycs {
         }
     }
     @Test
-    public void test10(){
-        try{
-            Stmt statement =(Stmt) (Parser.parse("{x = true; while x do x = 1; x = x + 1;}").value);
-            HashMap<String, Object> evaluate = statement.evaluate(new HashMap<String, Object>());
-            Assert.assertNotNull(evaluate.get("x"));
-            Assert.assertEquals(2.0, evaluate.get("x"));
-
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            Assert.fail();
-        }
+    public void test10() throws Exception {
+        Stmt statement = (Stmt) (Parser.parse("{x = true; while x do x = 1; x = x + 1;}").value);
+        CheckState state = statement.check(new CheckState());
+        Assert.assertTrue(state.getStateHashMap().containsKey("x"));
+        Assert.assertNotEquals(ObjectState.Types.BOOLEAN, state.getStateHashMap().get("x").getVariable());
     }
 
     @Test
-    public void test11(){
-        try{
-            Stmt statement =(Stmt) (Parser.parse("{if true then x = 1; else x = \"1\"; x = x * 2;}").value);
-            HashMap<String, Object> evaluate = statement.evaluate(new HashMap<String, Object>());
-            Assert.assertNotNull(evaluate.get("x"));
-            Assert.assertEquals(2.0, evaluate.get("x"));
-
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            Assert.fail();
-        }
+    public void test11() throws Exception {
+        Stmt statement = (Stmt) (Parser.parse("{if true then x = 1; else x = \"1\"; x = x * 2;}").value);
+        CheckState state = statement.check(new CheckState());
+        Assert.assertTrue(state.getStateHashMap().containsKey("x"));
+        Assert.assertEquals(ObjectState.Types.NUMERIC, state.getStateHashMap().get("x").getVariable());
     }
 
 }
