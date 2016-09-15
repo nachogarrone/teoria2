@@ -64,7 +64,7 @@ public class TestSemanticAnalitycs {
 
     @Test
     public void test5() throws Exception {
-        Stmt statement = (Stmt) (Parser.parse("{while 1 do {};}").value);
+        Stmt statement = (Stmt) (Parser.parse("{while 1 do {}}").value);
         CheckState checkS = statement.check(new CheckState());
         Assert.assertNotNull(checkS.getStateHashMap().values());
         Assert.assertFalse(checkS.getStateHashMap().containsKey(1));
@@ -72,7 +72,7 @@ public class TestSemanticAnalitycs {
 
     @Test
     public void test6() throws Exception {
-        Stmt statement = (Stmt) (Parser.parse("{if 2 then {} else {};}").value);
+        Stmt statement = (Stmt) (Parser.parse("{if 2 then {} else {}}").value);
         CheckState state = statement.check(new CheckState());
         Assert.assertNotNull(state.getStateHashMap().values());
         Assert.assertFalse(state.getStateHashMap().containsKey(2));
@@ -80,7 +80,7 @@ public class TestSemanticAnalitycs {
 
     @Test
     public void test7() throws Exception {
-        Stmt statement = (Stmt) (Parser.parse("{if \"x\" then {} else {};}").value);
+        Stmt statement = (Stmt) (Parser.parse("{if \"x\" then {} else {}}").value);
         CheckState state = statement.check(new CheckState());
         Assert.assertFalse(state.getStateHashMap().containsKey("x"));
     }
