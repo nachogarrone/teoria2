@@ -42,6 +42,8 @@ public class TestSemanticAnalitycs {
         try {
             Stmt statement = (Stmt) (Parser.parse("{x = x + 1;}").value);
             CheckState checkS = statement.check(new CheckState());
+            checkS.getStateHashMap().containsKey("x");
+            Assert.assertTrue(checkS.getStateHashMap().containsKey("x"));
             Assert.assertNotNull(checkS.getStateHashMap().values());
             Assert.assertNotEquals(NUMERIC, checkS.getStateHashMap().containsKey("x"));
         } catch (Exception e) {
@@ -59,7 +61,7 @@ public class TestSemanticAnalitycs {
             Assert.assertFalse(checkS.getStateHashMap().containsKey("y"));
             Assert.assertNotNull(checkS.getStateHashMap().values());
             Assert.assertFalse(checkS.getStateHashMap().containsKey("x"));
-            Assert.assertNotEquals(NUMERIC, checkS.getStateHashMap().containsKey("x"));
+            Assert.assertNotEquals(ObjectState.Types.NUMERIC, checkS.getStateHashMap().containsKey("x"));
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();
@@ -69,7 +71,7 @@ public class TestSemanticAnalitycs {
     @Test
     public void test5() {
         try {
-            Stmt statement = (Stmt) (Parser.parse("{while 1 do {};}").value);
+            Stmt statement = (Stmt) (Parser.parse("{while 1 do {}}").value);
             CheckState checkS = statement.check(new CheckState());
             Assert.assertNotNull(checkS.getStateHashMap().values());
             Assert.assertFalse(checkS.getStateHashMap().containsKey(1));
@@ -82,7 +84,7 @@ public class TestSemanticAnalitycs {
     @Test
     public void test6() {
         try {
-            Stmt statement = (Stmt) (Parser.parse("{if 2 then {} else {};}").value);
+            Stmt statement = (Stmt) (Parser.parse("{if 2 then {} else {}}").value);
             CheckState checkS = statement.check(new CheckState());
             Assert.assertNotNull(checkS.getStateHashMap().values());
             Assert.assertFalse(checkS.getStateHashMap().containsKey(2));
