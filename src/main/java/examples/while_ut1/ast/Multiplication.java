@@ -55,8 +55,13 @@ public class Multiplication extends Exp {
         Object leftO = this.left.check(state);
         Object rightO = this.right.check(state);
 
-        if (leftO == null || rightO == null) {
-            Logger.log(this.getClass().getName(), "El compilador no se puede recuperar!");
+        if (leftO == null) {
+            Logger.log(this.getClass().getName(), "Operando izquierdo no está definido.");
+            leftO = new ObjectState(ObjectState.Types.NUMERIC,true);
+        }
+        if (rightO == null) {
+            Logger.log(this.getClass().getName(), "Operando derecho no está definido.");
+            rightO = new ObjectState(ObjectState.Types.NUMERIC,true);
         }
 
         ObjectState.Types leftType = ((ObjectState)leftO).getVariable();

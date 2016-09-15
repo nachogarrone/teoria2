@@ -55,8 +55,11 @@ public class TestSemanticAnalitycs {
         try {
             Stmt statement = (Stmt) (Parser.parse("{x = y * 2;}").value);
             CheckState checkS = statement.check(new CheckState());
+            checkS.getStateHashMap().containsKey("x");
             Assert.assertFalse(checkS.getStateHashMap().containsKey("y"));
+            Assert.assertNotNull(checkS.getStateHashMap().values());
             Assert.assertFalse(checkS.getStateHashMap().containsKey("x"));
+            Assert.assertNotEquals(ObjectState.Types.NUMERIC, checkS.getStateHashMap().containsKey("x"));
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();
@@ -66,7 +69,7 @@ public class TestSemanticAnalitycs {
     @Test
     public void test5() {
         try {
-            Stmt statement = (Stmt) (Parser.parse("{while 1 do {}}").value);
+            Stmt statement = (Stmt) (Parser.parse("{while 1 do {};}").value);
             CheckState checkS = statement.check(new CheckState());
             Assert.assertNotNull(checkS.getStateHashMap().values());
             Assert.assertFalse(checkS.getStateHashMap().containsKey(1));
@@ -79,7 +82,7 @@ public class TestSemanticAnalitycs {
     @Test
     public void test6() {
         try {
-            Stmt statement = (Stmt) (Parser.parse("{if 2 then {} else {}}").value);
+            Stmt statement = (Stmt) (Parser.parse("{if 2 then {} else {};}").value);
             CheckState checkS = statement.check(new CheckState());
             Assert.assertNotNull(checkS.getStateHashMap().values());
             Assert.assertFalse(checkS.getStateHashMap().containsKey(2));
@@ -90,44 +93,26 @@ public class TestSemanticAnalitycs {
     }
 
     @Test
-    public void test7() {
-        try {
-            Stmt statement = (Stmt) (Parser.parse("{if \"x\" then {} else {}}").value);
-            CheckState checkS = statement.check(new CheckState());
-            Assert.assertNotNull(checkS.getStateHashMap().values());
-            Assert.assertFalse(checkS.getStateHashMap().containsKey("\"x\""));
-        } catch (Exception e) {
-            e.printStackTrace();
-            Assert.fail();
-        }
+    public void test7() throws Exception {
+        Stmt statement = (Stmt) (Parser.parse("{if \"x\" then {} else {}}").value);
+        CheckState state = statement.check(new CheckState());
+        Assert.assertFalse(state.getStateHashMap().containsKey("x"));
     }
 
     @Test
-    public void test8() {
-        try {
-            Stmt statement = (Stmt) (Parser.parse("{x = \"x\" + 2;}").value);
-            CheckState checkS = statement.check(new CheckState());
-            Assert.assertNotNull(checkS.getStateHashMap().values());
-            Assert.assertFalse(checkS.getStateHashMap().containsKey("x"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            Assert.fail();
-        }
+    public void test8() throws Exception {
+        Stmt statement = (Stmt) (Parser.parse("{x = \"x\" + 2;}").value);
+        CheckState state = statement.check(new CheckState());
+        Assert.assertNotNull(state.getStateHashMap().get("x"));
+        Assert.assertEquals(ObjectState.Types.NUMERIC, state.getStateHashMap().get("x").getVariable());
     }
 
     @Test
-    public void test9() {
-        try {
-            Stmt statement = (Stmt) (Parser.parse("{x = 17; x = true; x = x + 1;}").value);
-            CheckState checkS = statement.check(new CheckState());
-            HashMap<String, Object> evaluate = statement.evaluate(new HashMap<String, Object>());
-            Assert.assertNotNull(evaluate.get("x"));
-            Assert.assertFalse(checkS.getStateHashMap().containsKey("x"));
-            Assert.assertNotEquals(18.0, evaluate.get("x"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            Assert.fail();
-        }
+    public void test9() throws Exception {
+        Stmt statement = (Stmt) (Parser.parse("{x = 17; x = true; x = x + 1;}").value);
+        CheckState state = statement.check(new CheckState());
+        Assert.assertTrue(state.getStateHashMap().containsKey("x"));
+        Assert.assertEquals(ObjectState.Types.NUMERIC, state.getStateHashMap().get("x").getVariable());
     }
 
     @Test

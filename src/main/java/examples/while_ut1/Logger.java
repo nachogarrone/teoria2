@@ -12,13 +12,22 @@ public class Logger {
     public static void log(String key, String message) {
         Writer writer = null;
         Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:MM:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 
         System.out.println(simpleDateFormat.format(date) + ": " + key + " : " + message);
 
         try {
-            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("log.txt"), "utf-8"));
-            writer.write(simpleDateFormat.format(date) + ": " + key + " : " + message);
+
+            File file = new File("log.txt");
+
+            //if file doesnt exists, then create it
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            FileWriter fileWriter = new FileWriter(file, true);
+            writer = new BufferedWriter(fileWriter);
+            writer.write(simpleDateFormat.format(date) + ": " + key + " : " + message + System.lineSeparator());
         } catch (IOException ex) {
             // report
         } finally {

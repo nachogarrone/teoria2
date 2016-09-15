@@ -59,10 +59,12 @@ public class Variable extends Exp {
     }
 
     public Object check(CheckState state) {
-        if (state.getStateHashMap().get(id) == null) {
-            Logger.log(getClass().getName(), "Variable no definida. El compilador no se puede recuperar!");
+        ObjectState objectState = state.getStateHashMap().get(id);
+        if (objectState == null) {
+            Logger.log(getClass().getName(), "Variable \"" + id + "\" no definida. " +
+                    "ADVERTENCIA: Estados siguientes pueden ser inestables.");
         }
-        return state.getStateHashMap().get(id);
+        return objectState;
     }
 
 }
