@@ -31,11 +31,4 @@ public class ObjectState {
     public Boolean isInitialized(){
         return this.initialized;
     }
-
-
-    public enum Types{
-        NUMERIC,
-        STRING,
-        BOOLEAN
-    }
 }

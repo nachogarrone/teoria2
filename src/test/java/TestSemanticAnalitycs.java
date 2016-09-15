@@ -1,11 +1,11 @@
 import examples.while_ut1.analyzer.CheckState;
-import examples.while_ut1.analyzer.ObjectState;
 import examples.while_ut1.ast.Stmt;
 import examples.while_ut1.parser.Parser;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.HashMap;
+import static examples.while_ut1.analyzer.Types.BOOLEAN;
+import static examples.while_ut1.analyzer.Types.NUMERIC;
 
 /**
  * Created by Emanuel Chalela on 12/9/2016.
@@ -17,7 +17,7 @@ public class TestSemanticAnalitycs {
             Stmt statement = (Stmt) (Parser.parse("{x = true * 2;}").value);
             CheckState checkS = statement.check(new CheckState());
             Assert.assertNotNull(checkS.getStateHashMap().values());
-            Assert.assertNotEquals(ObjectState.Types.BOOLEAN, checkS.getStateHashMap().containsKey("x"));
+            Assert.assertNotEquals(BOOLEAN, checkS.getStateHashMap().containsKey("x"));
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();
@@ -30,7 +30,7 @@ public class TestSemanticAnalitycs {
             Stmt statement = (Stmt) (Parser.parse("{x = 1 + false;}").value);
             CheckState checkS = statement.check(new CheckState());
             Assert.assertNotNull(checkS.getStateHashMap().values());
-            Assert.assertNotEquals(ObjectState.Types.NUMERIC, checkS.getStateHashMap().containsKey("x"));
+            Assert.assertNotEquals(NUMERIC, checkS.getStateHashMap().containsKey("x"));
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();
@@ -43,7 +43,7 @@ public class TestSemanticAnalitycs {
             Stmt statement = (Stmt) (Parser.parse("{x = x + 1;}").value);
             CheckState checkS = statement.check(new CheckState());
             Assert.assertNotNull(checkS.getStateHashMap().values());
-            Assert.assertNotEquals(ObjectState.Types.NUMERIC, checkS.getStateHashMap().containsKey("x"));
+            Assert.assertNotEquals(NUMERIC, checkS.getStateHashMap().containsKey("x"));
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();
@@ -59,7 +59,7 @@ public class TestSemanticAnalitycs {
             Assert.assertFalse(checkS.getStateHashMap().containsKey("y"));
             Assert.assertNotNull(checkS.getStateHashMap().values());
             Assert.assertFalse(checkS.getStateHashMap().containsKey("x"));
-            Assert.assertNotEquals(ObjectState.Types.NUMERIC, checkS.getStateHashMap().containsKey("x"));
+            Assert.assertNotEquals(NUMERIC, checkS.getStateHashMap().containsKey("x"));
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();
@@ -104,7 +104,7 @@ public class TestSemanticAnalitycs {
         Stmt statement = (Stmt) (Parser.parse("{x = \"x\" + 2;}").value);
         CheckState state = statement.check(new CheckState());
         Assert.assertNotNull(state.getStateHashMap().get("x"));
-        Assert.assertEquals(ObjectState.Types.NUMERIC, state.getStateHashMap().get("x").getVariable());
+        Assert.assertEquals(NUMERIC, state.getStateHashMap().get("x").getVariable());
     }
 
     @Test
@@ -112,7 +112,7 @@ public class TestSemanticAnalitycs {
         Stmt statement = (Stmt) (Parser.parse("{x = 17; x = true; x = x + 1;}").value);
         CheckState state = statement.check(new CheckState());
         Assert.assertTrue(state.getStateHashMap().containsKey("x"));
-        Assert.assertEquals(ObjectState.Types.NUMERIC, state.getStateHashMap().get("x").getVariable());
+        Assert.assertEquals(NUMERIC, state.getStateHashMap().get("x").getVariable());
     }
 
     @Test
@@ -120,7 +120,7 @@ public class TestSemanticAnalitycs {
         Stmt statement = (Stmt) (Parser.parse("{x = true <= \"false\";}").value);
         CheckState state = statement.check(new CheckState());
         Assert.assertNotNull(state.getStateHashMap().containsKey("x"));
-        Assert.assertEquals(ObjectState.Types.BOOLEAN, state.getStateHashMap().get("x").getVariable());
+        Assert.assertEquals(BOOLEAN, state.getStateHashMap().get("x").getVariable());
     }
 
     @Test
@@ -128,7 +128,7 @@ public class TestSemanticAnalitycs {
         Stmt statement = (Stmt) (Parser.parse("{x = true; while x do x = 1; x = x + 1;}").value);
         CheckState state = statement.check(new CheckState());
         Assert.assertTrue(state.getStateHashMap().containsKey("x"));
-        Assert.assertEquals(ObjectState.Types.BOOLEAN, state.getStateHashMap().get("x").getVariable());
+        Assert.assertEquals(BOOLEAN, state.getStateHashMap().get("x").getVariable());
     }
 
     @Test
@@ -136,7 +136,7 @@ public class TestSemanticAnalitycs {
         Stmt statement = (Stmt) (Parser.parse("{if true then x = 1; else x = \"1\"; x = x * 2;}").value);
         CheckState state = statement.check(new CheckState());
         Assert.assertTrue(state.getStateHashMap().containsKey("x"));
-        Assert.assertEquals(ObjectState.Types.NUMERIC, state.getStateHashMap().get("x").getVariable());
+        Assert.assertEquals(NUMERIC, state.getStateHashMap().get("x").getVariable());
     }
 
 }
