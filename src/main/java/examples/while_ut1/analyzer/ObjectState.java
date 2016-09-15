@@ -6,10 +6,17 @@ package examples.while_ut1.analyzer;
 public class ObjectState {
     Types variable;
     Boolean initialized;
+    String error;
 
     public ObjectState(Types variable, Boolean initialized) {
         this.variable = variable;
         this.initialized = initialized;
+    }
+
+    public ObjectState(Types variable, Boolean initialized, String error) {
+        this.variable = variable;
+        this.initialized = initialized;
+        this.error = error;
     }
 
     public ObjectState() {
@@ -28,7 +35,19 @@ public class ObjectState {
         this.initialized = initialized;
     }
 
-    public Boolean isInitialized(){
+    public Boolean isInitialized() {
         return this.initialized;
+    }
+
+    public Boolean getInitialized() {
+        return initialized;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 }

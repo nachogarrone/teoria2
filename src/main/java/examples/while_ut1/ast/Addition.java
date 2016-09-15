@@ -66,11 +66,11 @@ public class Addition extends Exp {
 */
         if (leftO == null) {
             Logger.log(this.getClass().getName(), "Operando izquierdo no está definido.");
-            leftO = new ObjectState(Types.NUMERIC,true);
+            leftO = new ObjectState(Types.NUMERIC,true,"Operando izquierdo no está definido.");
         }
         if (rightO == null) {
             Logger.log(this.getClass().getName(), "Operando derecho no está definido.");
-            rightO = new ObjectState(Types.NUMERIC,true);
+            rightO = new ObjectState(Types.NUMERIC,true,"Operando derecho no está definido.");
         }
         Types leftType = ((ObjectState)leftO).getVariable();
         Types rightType = ((ObjectState)rightO).getVariable();
