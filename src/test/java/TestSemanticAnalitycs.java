@@ -122,18 +122,11 @@ public class TestSemanticAnalitycs {
     }
 
     @Test
-    public void test9() {
-        try {
-            Stmt statement = (Stmt) (Parser.parse("{x = 17; x = true; x = x + 1;}").value);
-            CheckState checkS = statement.check(new CheckState());
-            HashMap<String, Object> evaluate = statement.evaluate(new HashMap<String, Object>());
-            Assert.assertNotNull(evaluate.get("x"));
-            Assert.assertFalse(checkS.getStateHashMap().containsKey("x"));
-            Assert.assertNotEquals(18.0, evaluate.get("x"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            Assert.fail();
-        }
+    public void test9() throws Exception {
+        Stmt statement = (Stmt) (Parser.parse("{x = 17; x = true; x = x + 1;}").value);
+        CheckState state = statement.check(new CheckState());
+        Assert.assertTrue(state.getStateHashMap().containsKey("x"));
+        Assert.assertEquals(ObjectState.Types.NUMERIC, state.getStateHashMap().get("x").getVariable());
     }
 
     @Test
