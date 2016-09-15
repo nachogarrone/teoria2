@@ -50,6 +50,7 @@ public class CompareLessOrEqual extends Exp {
         return (Double) left.evaluate(state) <= (Double) right.evaluate(state);
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public Object check(CheckState state) {
         Object leftO = this.left.check(state);
@@ -59,17 +60,19 @@ public class CompareLessOrEqual extends Exp {
             Logger.log(this.getClass().getName(), "El compilador no se puede recuperar!");
         }
 
-        switch ((ObjectState.Types) leftO) {
+        ObjectState.Types leftType = ((ObjectState)leftO).getVariable();
+        ObjectState.Types rightType = ((ObjectState)rightO).getVariable();
+        switch (leftType) {
             case NUMERIC:
-                if (rightO == ObjectState.Types.NUMERIC) return new ObjectState(ObjectState.Types.NUMERIC, true);
+                if (rightType == ObjectState.Types.NUMERIC) return new ObjectState(ObjectState.Types.NUMERIC, true);
                 Logger.log(this.getClass().getName(), "No se puede comparar con distintos tipos de variables");
                 return new ObjectState(ObjectState.Types.BOOLEAN, true);
             case STRING:
-                if (rightO == ObjectState.Types.STRING) return new ObjectState(ObjectState.Types.STRING, true);
+                if (rightType == ObjectState.Types.STRING) return new ObjectState(ObjectState.Types.STRING, true);
                 Logger.log(this.getClass().getName(), "No se puede comparar con distintos tipos de variables");
                 return new ObjectState(ObjectState.Types.BOOLEAN, true);
             case BOOLEAN:
-                if (rightO == ObjectState.Types.BOOLEAN) return new ObjectState(ObjectState.Types.BOOLEAN, true);
+                if (rightType == ObjectState.Types.BOOLEAN) return new ObjectState(ObjectState.Types.BOOLEAN, true);
                 Logger.log(this.getClass().getName(), "No se puede comparar con distintos tipos de variables");
                 return new ObjectState(ObjectState.Types.BOOLEAN, true);
             default:
