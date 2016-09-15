@@ -3,6 +3,7 @@ package examples.while_ut1.ast;
 import examples.while_ut1.Logger;
 import examples.while_ut1.analyzer.CheckState;
 import examples.while_ut1.analyzer.ObjectState;
+import examples.while_ut1.analyzer.Types;
 
 import java.util.*;
 
@@ -72,7 +73,7 @@ public class IfThenElse extends Stmt {
         }
 
         ObjectState conditionType = (ObjectState) condition;
-        if (!conditionType.getVariable().equals(ObjectState.Types.BOOLEAN)) {
+        if (!conditionType.getVariable().equals(Types.BOOLEAN)) {
             Logger.log(this.getClass().getName(), "Condición de IF no Booleana. Tipo: " + conditionType.getVariable());
         }
 

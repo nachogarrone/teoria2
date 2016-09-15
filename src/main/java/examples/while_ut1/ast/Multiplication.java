@@ -3,6 +3,7 @@ package examples.while_ut1.ast;
 import examples.while_ut1.Logger;
 import examples.while_ut1.analyzer.CheckState;
 import examples.while_ut1.analyzer.ObjectState;
+import examples.while_ut1.analyzer.Types;
 
 import java.util.*;
 
@@ -57,32 +58,32 @@ public class Multiplication extends Exp {
 
         if (leftO == null) {
             Logger.log(this.getClass().getName(), "Operando izquierdo no está definido.");
-            leftO = new ObjectState(ObjectState.Types.NUMERIC,true);
+            leftO = new ObjectState(Types.NUMERIC,true);
         }
         if (rightO == null) {
             Logger.log(this.getClass().getName(), "Operando derecho no está definido.");
-            rightO = new ObjectState(ObjectState.Types.NUMERIC,true);
+            rightO = new ObjectState(Types.NUMERIC,true);
         }
 
-        ObjectState.Types leftType = ((ObjectState)leftO).getVariable();
-        ObjectState.Types rightType = ((ObjectState)rightO).getVariable();
+        Types leftType = ((ObjectState)leftO).getVariable();
+        Types rightType = ((ObjectState)rightO).getVariable();
         switch (leftType) {
             case NUMERIC:
-                if (rightType == ObjectState.Types.NUMERIC) return new ObjectState(ObjectState.Types.NUMERIC, true);
-                if (rightType == ObjectState.Types.STRING) return new ObjectState(ObjectState.Types.STRING, true);
+                if (rightType == Types.NUMERIC) return new ObjectState(Types.NUMERIC, true);
+                if (rightType == Types.STRING) return new ObjectState(Types.STRING, true);
                 Logger.log(this.getClass().getName(), "No se puede multiplocar numeros con booleanos");
-                return new ObjectState(ObjectState.Types.NUMERIC, true);
+                return new ObjectState(Types.NUMERIC, true);
             case STRING:
-                if (rightType == ObjectState.Types.NUMERIC) return new ObjectState(ObjectState.Types.STRING, true);
-                if (rightType == ObjectState.Types.STRING) return new ObjectState(ObjectState.Types.STRING, true);
+                if (rightType == Types.NUMERIC) return new ObjectState(Types.STRING, true);
+                if (rightType == Types.STRING) return new ObjectState(Types.STRING, true);
                 Logger.log(this.getClass().getName(), "No se puede multiplicar con un booleano.");
-                return new ObjectState(ObjectState.Types.STRING, true);
+                return new ObjectState(Types.STRING, true);
             case BOOLEAN:
                 Logger.log(this.getClass().getName(), "No se puede multiplicar con un booleano.");
-                return new ObjectState(ObjectState.Types.NUMERIC, true);
+                return new ObjectState(Types.NUMERIC, true);
             default:
                 Logger.log(this.getClass().getName(), "No se puede dividir.");
-                return new ObjectState(ObjectState.Types.NUMERIC, true);
+                return new ObjectState(Types.NUMERIC, true);
         }
     }
 //	public static Multiplication generate(Random random, int min, int max) {

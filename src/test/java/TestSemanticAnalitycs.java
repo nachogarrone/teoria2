@@ -60,8 +60,8 @@ public class TestSemanticAnalitycs {
             checkS.getStateHashMap().containsKey("x");
             Assert.assertFalse(checkS.getStateHashMap().containsKey("y"));
             Assert.assertNotNull(checkS.getStateHashMap().values());
-            Assert.assertFalse(checkS.getStateHashMap().containsKey("x"));
-            Assert.assertNotEquals(ObjectState.Types.NUMERIC, checkS.getStateHashMap().containsKey("x"));
+            Assert.assertTrue(checkS.getStateHashMap().containsKey("x"));
+            Assert.assertNotEquals(NUMERIC, checkS.getStateHashMap().containsKey("x"));
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();

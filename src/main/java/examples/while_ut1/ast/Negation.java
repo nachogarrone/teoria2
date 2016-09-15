@@ -3,6 +3,7 @@ package examples.while_ut1.ast;
 import examples.while_ut1.Logger;
 import examples.while_ut1.analyzer.CheckState;
 import examples.while_ut1.analyzer.ObjectState;
+import examples.while_ut1.analyzer.Types;
 
 import java.util.*;
 
@@ -54,19 +55,19 @@ public class Negation extends Exp {
             Logger.log(this.getClass().getName(), "El compilador no se puede recuperar!");
         }
 
-        ObjectState.Types type = ((ObjectState) leftO).getVariable();
+        Types type = ((ObjectState) leftO).getVariable();
         switch (type) {
             case NUMERIC:
                 Logger.log(this.getClass().getName(), "No se puede hacer un NOT con un número");
-                return new ObjectState(ObjectState.Types.BOOLEAN, true);
+                return new ObjectState(Types.BOOLEAN, true);
             case STRING:
                 Logger.log(this.getClass().getName(), "No se puede hacer un NOT con un string");
-                return new ObjectState(ObjectState.Types.BOOLEAN, true);
+                return new ObjectState(Types.BOOLEAN, true);
             case BOOLEAN:
-                return new ObjectState(ObjectState.Types.BOOLEAN, true);
+                return new ObjectState(Types.BOOLEAN, true);
             default:
                 Logger.log(this.getClass().getName(), "No se puede hacer un NOT con variable desconocida");
-                return new ObjectState(ObjectState.Types.BOOLEAN, true);
+                return new ObjectState(Types.BOOLEAN, true);
         }
     }
 

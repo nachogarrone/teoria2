@@ -3,6 +3,7 @@ package examples.while_ut1.ast;
 import examples.while_ut1.Logger;
 import examples.while_ut1.analyzer.CheckState;
 import examples.while_ut1.analyzer.ObjectState;
+import examples.while_ut1.analyzer.Types;
 
 import java.util.*;
 
@@ -61,20 +62,20 @@ public class Division extends Exp {
             Logger.log(this.getClass().getName(), "El compilador no se puede recuperar!");
         }
 
-        switch ((ObjectState.Types) leftO) {
+        switch ((Types) leftO) {
             case NUMERIC:
-                if (rightO == ObjectState.Types.NUMERIC) return new ObjectState(ObjectState.Types.NUMERIC, true);
+                if (rightO == Types.NUMERIC) return new ObjectState(Types.NUMERIC, true);
                 Logger.log(this.getClass().getName(), "No se puede dividir numeros con otros tipos de variables");
-                return new ObjectState(ObjectState.Types.NUMERIC, true);
+                return new ObjectState(Types.NUMERIC, true);
             case STRING:
                 Logger.log(this.getClass().getName(), "No se puede dividir con un string.");
-                return new ObjectState(ObjectState.Types.NUMERIC, true);
+                return new ObjectState(Types.NUMERIC, true);
             case BOOLEAN:
                 Logger.log(this.getClass().getName(), "No se puede dividir con un booleano.");
-                return new ObjectState(ObjectState.Types.NUMERIC, true);
+                return new ObjectState(Types.NUMERIC, true);
             default:
                 Logger.log(this.getClass().getName(), "No se puede dividir.");
-                return new ObjectState(ObjectState.Types.NUMERIC, true);
+                return new ObjectState(Types.NUMERIC, true);
         }
     }
 

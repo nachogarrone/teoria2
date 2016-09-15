@@ -2,6 +2,7 @@ package examples.while_ut1.ast;
 
 import examples.while_ut1.analyzer.CheckState;
 import examples.while_ut1.analyzer.ObjectState;
+import examples.while_ut1.analyzer.Types;
 
 import java.util.HashMap;
 
@@ -42,6 +43,6 @@ public class Str extends Exp {
 	}
 
 	public Object check(CheckState state) {
-		return new ObjectState(ObjectState.Types.STRING, false);
+		return new ObjectState(Types.STRING, false);
 	}
 }

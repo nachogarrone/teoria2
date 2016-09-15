@@ -3,6 +3,7 @@ package examples.while_ut1.ast;
 import examples.while_ut1.Logger;
 import examples.while_ut1.analyzer.CheckState;
 import examples.while_ut1.analyzer.ObjectState;
+import examples.while_ut1.analyzer.Types;
 
 import java.util.*;
 
@@ -58,20 +59,20 @@ public class Conjunction extends Exp {
         if (leftO == null || rightO == null) {
             Logger.log(this.getClass().getName(), "El compilador no se puede recuperar!");
         }
-        switch ((ObjectState.Types) leftO) {
+        switch ((Types) leftO) {
             case NUMERIC:
                 Logger.log(this.getClass().getName(), "No se puede hacer un AND con un número");
-                return new ObjectState(ObjectState.Types.BOOLEAN, true);
+                return new ObjectState(Types.BOOLEAN, true);
             case STRING:
                 Logger.log(this.getClass().getName(), "No se puede hacer un AND con un string");
-                return new ObjectState(ObjectState.Types.BOOLEAN, true);
+                return new ObjectState(Types.BOOLEAN, true);
             case BOOLEAN:
-                if (rightO == ObjectState.Types.BOOLEAN) return new ObjectState(ObjectState.Types.BOOLEAN, true);
+                if (rightO == Types.BOOLEAN) return new ObjectState(Types.BOOLEAN, true);
                 Logger.log(this.getClass().getName(), "No se puede hacer un AND con otra cosa que no sea booleano.");
-                return new ObjectState(ObjectState.Types.BOOLEAN, true);
+                return new ObjectState(Types.BOOLEAN, true);
             default:
                 Logger.log(this.getClass().getName(), "No se puede hacer un AND con distintos tipos");
-                return new ObjectState(ObjectState.Types.BOOLEAN, true);
+                return new ObjectState(Types.BOOLEAN, true);
         }
     }
 
