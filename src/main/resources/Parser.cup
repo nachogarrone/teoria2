@@ -63,7 +63,7 @@ expr      ::=NEG expr:e1
 	      {: RESULT = new Negation(e1); :}
           |
             PRED:p LPAREN exprs:e RPAREN
-	      {: RESULT = new Predicate(p,e); :}
+	      {: RESULT = new MyPredicate(p,e); :}
           |
               expr:e1 AND expr:e2
           {: RESULT = new Conjunction(e1,e2); :}

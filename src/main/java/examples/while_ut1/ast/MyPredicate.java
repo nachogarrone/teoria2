@@ -5,11 +5,11 @@ import java.util.List;
 /**
  * Created by nachogarrone on 6/26/17.
  */
-public class Predicate extends Exp {
+public class MyPredicate extends Exp {
     public final String id;
     public final List<Exp> expressions;
 
-    public Predicate(String id, List<Exp> expressions) {
+    public MyPredicate(String id, List<Exp> expressions) {
         this.id = id;
         this.expressions = expressions;
     }
@@ -34,10 +34,10 @@ public class Predicate extends Exp {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Predicate predicate = (Predicate) o;
+        MyPredicate myPredicate = (MyPredicate) o;
 
-        if (id != null ? !id.equals(predicate.id) : predicate.id != null) return false;
-        return expressions != null ? expressions.equals(predicate.expressions) : predicate.expressions == null;
+        if (id != null ? !id.equals(myPredicate.id) : myPredicate.id != null) return false;
+        return expressions != null ? expressions.equals(myPredicate.expressions) : myPredicate.expressions == null;
     }
 
     @Override
