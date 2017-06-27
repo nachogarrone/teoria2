@@ -1,26 +1,13 @@
 package examples.while_ut1.ast;
 
-import examples.while_ut1.analyzer.CheckState;
-import examples.while_ut1.analyzer.ObjectState;
-import examples.while_ut1.analyzer.Types;
-
-import java.util.HashMap;
-import java.util.Random;
-
 /**
- * Representación de constantes numéricas o numerales.
+ * Created by nachogarrone on 6/20/17.
  */
 public class Numeral extends Exp {
     public final Double number;
 
     public Numeral(Double number) {
         this.number = number;
-    }
-
-    public static Numeral generate(Random random, int min, int max) {
-        Double number;
-        number = Double.valueOf(random.nextInt(max - min) + min);
-        return new Numeral(number);
     }
 
     public Double getNumber() {
@@ -34,7 +21,8 @@ public class Numeral extends Exp {
 
     @Override
     public String toString() {
-        return "Numeral(" + number + ")";
+        return unparse();
+//        return "Numeral(" + number + ")";
     }
 
     @Override
@@ -50,14 +38,5 @@ public class Numeral extends Exp {
         if (obj == null || getClass() != obj.getClass()) return false;
         Numeral other = (Numeral) obj;
         return (this.number == null ? other.number == null : this.number.equals(other.number));
-    }
-
-    @Override
-    public Object evaluate(HashMap<String, Object> state) {
-        return number;
-    }
-
-    public Object check(CheckState state) {
-        return new ObjectState(Types.NUMERIC, false);
     }
 }

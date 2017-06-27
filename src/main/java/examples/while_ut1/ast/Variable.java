@@ -1,25 +1,13 @@
 package examples.while_ut1.ast;
 
-import examples.while_ut1.Logger;
-import examples.while_ut1.analyzer.CheckState;
-import examples.while_ut1.analyzer.ObjectState;
-
-import java.util.*;
-
 /**
- * Representación de usos de variable en expresiones.
+ * Created by nachogarrone on 6/20/17.
  */
 public class Variable extends Exp {
     public final String id;
 
     public Variable(String id) {
         this.id = id;
-    }
-
-    public static Variable generate(Random random, int min, int max) {
-        String id;
-        id = "" + "abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
-        return new Variable(id);
     }
 
     @Override
@@ -29,7 +17,8 @@ public class Variable extends Exp {
 
     @Override
     public String toString() {
-        return "Variable(" + id + ")";
+        return unparse();
+//        return "Variable(" + id + ")";
     }
 
     @Override
@@ -46,25 +35,4 @@ public class Variable extends Exp {
         Variable other = (Variable) obj;
         return (this.id == null ? other.id == null : this.id.equals(other.id));
     }
-
-    @Override
-    public Object evaluate(HashMap<String, Object> state) throws RuntimeException {
-        if (state.containsKey(id)) {
-            Object value = state.get(id);
-            return value;
-        } else {
-            throw new RuntimeException(id + " No está definida en state");
-        }
-
-    }
-
-    public Object check(CheckState state) {
-        ObjectState objectState = state.getStateHashMap().get(id);
-        if (objectState == null) {
-            Logger.log(getClass().getName(), "Variable \"" + id + "\" no definida. " +
-                    "ADVERTENCIA: Estados siguientes pueden ser inestables.");
-        }
-        return objectState;
-    }
-
 }

@@ -1,23 +1,23 @@
 package examples.while_ut1.ast;
 
-public class CompareEqual extends Exp {
+public class Disjunction extends Exp {
     public final Exp left;
     public final Exp right;
 
-    public CompareEqual(Exp left, Exp right) {
+    public Disjunction(Exp left, Exp right) {
         this.left = left;
         this.right = right;
     }
 
     @Override
     public String unparse() {
-        return left.unparse() + "<->" + right.unparse();
+        return left.unparse() + "\\/" + right.unparse();
     }
 
     @Override
     public String toString() {
         return unparse();
-        //return "CompareEqual(" + left + ", " + right + ")";
+        //return "Disjunction(" + left + ", " + right + ")";
     }
 
     @Override
@@ -32,7 +32,7 @@ public class CompareEqual extends Exp {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        CompareEqual other = (CompareEqual) obj;
+        Disjunction other = (Disjunction) obj;
         return (this.left == null ? other.left == null : this.left.equals(other.left))
                 && (this.right == null ? other.right == null : this.right.equals(other.right));
     }

@@ -1,15 +1,5 @@
 package examples.while_ut1.ast;
 
-import examples.while_ut1.Logger;
-import examples.while_ut1.analyzer.CheckState;
-import examples.while_ut1.analyzer.ObjectState;
-import examples.while_ut1.analyzer.Types;
-
-import java.util.*;
-
-/**
- * Representación de conjunciones booleanas (AND).
- */
 public class Conjunction extends Exp {
     public final Exp left;
     public final Exp right;
@@ -21,12 +11,13 @@ public class Conjunction extends Exp {
 
     @Override
     public String unparse() {
-        return "(" + left.unparse() + " and " + right.unparse() + ")";
+        return left.unparse() + "/\\" + right.unparse();
     }
 
     @Override
     public String toString() {
-        return "Conjunction(" + left + ", " + right + ")";
+        return unparse();
+        //return "Conjunction(" + left + ", " + right + ")";
     }
 
     @Override
@@ -45,42 +36,4 @@ public class Conjunction extends Exp {
         return (this.left == null ? other.left == null : this.left.equals(other.left))
                 && (this.right == null ? other.right == null : this.right.equals(other.right));
     }
-
-    @Override
-    public Object evaluate(HashMap<String, Object> state) {
-        return (Boolean) left.evaluate(state) && (Boolean) right.evaluate(state);
-    }
-
-    @Override
-    public Object check(CheckState state) {
-        Object leftO = this.left.check(state);
-        Object rightO = this.right.check(state);
-
-        if (leftO == null || rightO == null) {
-            Logger.log(this.getClass().getName(), "El compilador no se puede recuperar!");
-        }
-        switch ((Types) leftO) {
-            case NUMERIC:
-                Logger.log(this.getClass().getName(), "No se puede hacer un AND con un número");
-                return new ObjectState(Types.BOOLEAN, true);
-            case STRING:
-                Logger.log(this.getClass().getName(), "No se puede hacer un AND con un string");
-                return new ObjectState(Types.BOOLEAN, true);
-            case BOOLEAN:
-                if (rightO == Types.BOOLEAN) return new ObjectState(Types.BOOLEAN, true);
-                Logger.log(this.getClass().getName(), "No se puede hacer un AND con otra cosa que no sea booleano.");
-                return new ObjectState(Types.BOOLEAN, true);
-            default:
-                Logger.log(this.getClass().getName(), "No se puede hacer un AND con distintos tipos");
-                return new ObjectState(Types.BOOLEAN, true);
-        }
-    }
-
-
-//	public static Conjunction generate(Random random, int min, int max) {
-//		BExp left; BExp right;
-//		left = BExp.generate(random, min-1, max-1);
-//		right = BExp.generate(random, min-1, max-1);
-//		return new Conjunction(left, right);
-//	}
 }

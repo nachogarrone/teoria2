@@ -1,13 +1,7 @@
 package examples.while_ut1.ast;
 
-import examples.while_ut1.Logger;
-import examples.while_ut1.analyzer.CheckState;
-import examples.while_ut1.analyzer.ObjectState;
-
-import java.util.*;
-
 /**
- * Representación de las asignaciones de valores a variables.
+ * Created by nachogarrone on 6/20/17.
  */
 public class Assignment extends Stmt {
     public final String id;
@@ -20,12 +14,13 @@ public class Assignment extends Stmt {
 
     @Override
     public String unparse() {
-        return id + " = " + expression.unparse() + "; ";
+        return id + "=" + expression.unparse() + "; ";
     }
 
     @Override
     public String toString() {
-        return "Assignment(" + id + ", " + expression + ")";
+        return unparse();
+        //return "Assignment(" + id + ", " + expression + ")";
     }
 
     @Override
@@ -44,32 +39,5 @@ public class Assignment extends Stmt {
         return (this.id == null ? other.id == null : this.id.equals(other.id))
                 && (this.expression == null ? other.expression == null : this.expression.equals(other.expression));
     }
-
-    public HashMap<String, Object> evaluate(HashMap<String, Object> state) {
-        Object value = expression.evaluate(state);
-        state.put(id, value);
-        return state;
-    }
-
-    public CheckState check(CheckState state) {
-        if (state == null) {
-            Logger.log(getClass().getName(), "Variable no definida. El compilador no se puede recuperar!");
-        }
-        ObjectState newState = (ObjectState) expression.check(state);
-        if (state.getStateHashMap() != null && state.getStateHashMap().containsKey(id)) {
-            if (!state.getStateHashMap().get(id).getVariable().equals(newState.getVariable())) {
-                Logger.log(getClass().getName(), "Variable ya definida. No se puede cambiar el tipo!");
-            }
-        } else {
-            state.getStateHashMap().put(id, newState);
-        }
-        return state;
-    }
-
-//	public static Assignment generate(Random random, int min, int max) {
-//		String id; AExp expression;
-//		id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
-//		expression = AExp.generate(random, min-1, max-1);
-//		return new Assignment(id, expression);
-//	}
 }
+
